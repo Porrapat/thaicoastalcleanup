@@ -25,7 +25,7 @@
 
 
 $config['base_url']  = ($_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http') . "://" 
-                        . $_SERVER['SERVER_NAME'] . "/thaicoastalcleanup3/";
+                        . $_SERVER['SERVER_NAME'] . "/thaicoastalcleanup/";
 
 /*
 |--------------------------------------------------------------------------

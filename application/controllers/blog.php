@@ -163,70 +163,69 @@ class blog extends MY_Controller {
 		$this->renderWithTemplate3();
     }
 
-        public function posting($source=null) {
+    public function posting($source=null) {
 
-        	$this->output->set_header('Content-Type: application/json; charset=utf-8');
-       
-            //set preferences
-            //file upload destination
-            $upload_path = './assets/admin/blog/';
-            $config['upload_path'] = $upload_path;
-            //allowed file types. * means all types
-            $config['allowed_types'] = 'jpg|png|gif';
-            //allowed max file size. 0 means unlimited file size
-            $config['max_size'] = '0';
-            //max file name size
-            $config['max_filename'] = '255';
-            //whether file name should be encrypted or not
-            $config['encrypt_name'] = TRUE;
-            
-            //store image info once uploaded
-            $image_data = array();
-            //check for errors
-            $is_file_error = FALSE;
-            //check if file was selected for upload
-            if (!$_FILES) {
-                $is_file_error = TRUE;
-                $this->handle_error('Select an image file.');
-            }
-            //if file was selected then proceed to upload
-            if (!$is_file_error) {
-                //load the preferences
-                $this->load->library('upload', $config);
-                //check file successfully uploaded. 'image_name' is the name of the input
-                if (!$this->upload->do_upload('files')) {
-                    //if file upload failed then catch the errors
-                    $this->handle_error($this->upload->display_errors());
-                    $is_file_error = TRUE;
-                } else {
-                    //store the file info
-                    $image_data = $this->upload->data();
-                    $config['image_library'] = 'gd2';
-                    $config['source_image'] = $image_data['full_path']; //get original image
-                    $config['maintain_ratio'] = TRUE;
-                    $config['width'] = 750;
-                   // $config['height'] = 100;
-                    $this->load->library('image_lib', $config);
-                    if (!$this->image_lib->resize()) {
-                        $this->handle_error($this->image_lib->display_errors());
-                    }
-                }
-            }
-            // There were errors, we have to delete the uploaded image
-            if ($is_file_error) {
-                if ($image_data) {
-                    $file = $upload_path . $image_data['file_name'];
-                    if (file_exists($file)) {
-                        unlink($file);
-                    }
-                }
-            } else {
-                $arr = array('success' => 200,
-		            'filename' => $image_data['file_name']
-		        );
-			    echo json_encode( $arr );
-            }
+        $this->output->set_header('Content-Type: application/json; charset=utf-8');
+    
+        //set preferences
+        //file upload destination
+        $upload_path = './assets/admin/blog/';
+        $config['upload_path'] = $upload_path;
+        //allowed file types. * means all types
+        $config['allowed_types'] = 'jpg|png|gif';
+        //allowed max file size. 0 means unlimited file size
+        $config['max_size'] = '0';
+        //max file name size
+        $config['max_filename'] = '255';
+        //whether file name should be encrypted or not
+        $config['encrypt_name'] = TRUE;
         
+        //store image info once uploaded
+        $image_data = array();
+        //check for errors
+        $is_file_error = FALSE;
+        //check if file was selected for upload
+        if (!$_FILES) {
+            $is_file_error = TRUE;
+            $this->handle_error('Select an image file.');
+        }
+        //if file was selected then proceed to upload
+        if (!$is_file_error) {
+            //load the preferences
+            $this->load->library('upload', $config);
+            //check file successfully uploaded. 'image_name' is the name of the input
+            if (!$this->upload->do_upload('files')) {
+                //if file upload failed then catch the errors
+                $this->handle_error($this->upload->display_errors());
+                $is_file_error = TRUE;
+            } else {
+                //store the file info
+                $image_data = $this->upload->data();
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = $image_data['full_path']; //get original image
+                $config['maintain_ratio'] = TRUE;
+                $config['width'] = 750;
+                // $config['height'] = 100;
+                $this->load->library('image_lib', $config);
+                if (!$this->image_lib->resize()) {
+                    $this->handle_error($this->image_lib->display_errors());
+                }
+            }
+        }
+        // There were errors, we have to delete the uploaded image
+        if ($is_file_error) {
+            if ($image_data) {
+                $file = $upload_path . $image_data['file_name'];
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+            }
+        } else {
+            $arr = array('success' => 200,
+                'filename' => $image_data['file_name']
+            );
+            echo json_encode( $arr );
+        }
     }
 
 
@@ -236,8 +235,7 @@ class blog extends MY_Controller {
 
 
 
-    public function edit($id)
-    {
+    public function edit($id) {
         $id = $this->uri->segment(3);
         
         if (empty($id))
@@ -347,13 +345,11 @@ class blog extends MY_Controller {
         $this->data = $data;
 		$this->body = 'admin/blog/edit';
 		$this->renderWithTemplate3();
-
     }
 
 
 
-    public function del($id)
-    {
+    public function del($id) {
 
         $property_id = $id;
         
@@ -388,8 +384,7 @@ class blog extends MY_Controller {
 
 
 
-    public function del_img()
-    {
+    public function del_img() {
     	if($this->input->post('delimage') != null){
     	$id_img = $this->input->post('product_image');
     	$property_id = $this->input->post('property_id');
@@ -414,12 +409,4 @@ class blog extends MY_Controller {
     	$this->session->set_flashdata('success_blog_del_img', 'This is my message');
 		redirect('blog/edit/'.$property_id); 
     }
-
-
-
-
-
-
-
-
 }

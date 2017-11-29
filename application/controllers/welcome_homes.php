@@ -7,7 +7,6 @@ class welcome_homes extends MY_Controller {
 	}
 
     public function index() {
-
     	$sql="select * from article where FK_Article_Category = 1 and edate <= now() ORDER BY id DESC LIMIT 0,3";
         $rs=$this->db->query($sql);
 
@@ -28,7 +27,7 @@ class welcome_homes extends MY_Controller {
 	       }
 
 
-	     $sqls="select * from article where FK_Article_Category = 2 and edate <= now() ORDER BY id DESC LIMIT 0,3";
+		$sqls="select * from article where FK_Article_Category = 2 and edate <= now() ORDER BY id DESC LIMIT 0,3";
         $rt=$this->db->query($sqls);
 
 	       if($rt->num_rows() == 0){
