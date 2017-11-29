@@ -1,0 +1,8 @@
+.input-group-btn .btn, .input-group-btn .btn:hover, .input-group-btn .btn:focus {
+	width:140px;
+	text-align:left;
+	color: #555;
+	background-color: #eee;
+	border: 1px solid #ccc;
+	cursor:default
+}

@@ -35,7 +35,7 @@ class Report extends MY_Controller {
 		$this->body = 'frontend/report/dashboard/body_v';
 		$this->extendedJs = 'frontend/report/dashboard/extendedJs_v';
 		$this->footer = 'frontend/report/dashboard/footer_v';
-		$this->renderWithTemplate();
+		$this->renderWithTemplate2();
 	}
 // End Routing function.
 

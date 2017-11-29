@@ -6,38 +6,7 @@ class MY_Controller extends CI_Controller
     private $dataTemplate = array();
     public $data = array();
     public $lastBreadcrumbCaption;
-    private $rBreadcrumb = array(
-        "report" => array(
-            array(
-                "caption"   => "รายงานข้อมูลขยะทะเล",
-                "link"      => "report/overviewReport",
-            )
-        ),
-        "publicRelations" => array(
-            array(
-                "caption"   => "ข่าวสารโครงการ",
-                "link"      => "publicRelations/articleCategory/1/0",
-            )
-        ),
-        "eventImage" => array(
-            array(
-                "caption"   => "ภาพกิจกรรม",
-                "link"      => "eventImage/gallery/-1",
-            )
-        ),
-        "mapPlace" => array(
-            array(
-                "caption"   => "แผนที่การทำกิจกรรม",
-                "link"      => "mapPlace",
-            )
-        ),
-        "Gallery" => array(
-            array(
-                "caption"   => "แผนที่การทำกิจกรรม",
-                "link"      => "mapPlace",
-            )
-        ),
-    );
+    public $routingCode = 0;
 // End Set the class variable.
 
 // Set default variable.
@@ -61,20 +30,7 @@ class MY_Controller extends CI_Controller
     // ************************************************* Load template *********************************
     protected function renderWithTemplate() {
         // Set Breadcrumb.
-        $breadcrumb = NULL;
-        if($this->uri->rsegment_array()[1] !== "index") {
-            if(array_key_exists($this->uri->rsegment_array()[1], $this->rBreadcrumb)) {
-                $breadcrumb = $this->rBreadcrumb[$this->uri->rsegment_array()[1]];
-                $countBreadCrumb = count($breadcrumb);
-
-                if ($this->lastBreadcrumbCaption === NULL) {
-                    $breadcrumb[$countBreadCrumb-1]["link"] = NULL;
-                } else {
-                    $breadcrumb[$countBreadCrumb]["caption"] = $this->lastBreadcrumbCaption;
-                    $breadcrumb[$countBreadCrumb]["link"] = NULL;
-                }
-            }
-        }
+        $breadcrumb = $this->CreateBreadcrumb();
         // Set default data.
         $this->dataTemplate['level'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
         // making temlate and send data to view.
@@ -99,9 +55,9 @@ class MY_Controller extends CI_Controller
             ? $this->load->view($this->extendedJs, $this->data, true) : '');
 
         if($this->isHomePage) {
-            $this->load->view('template/index_v', $this->dataTemplate);
+            $this->load->view('template/welcome_index', $this->dataTemplate);
         } else {
-            $this->load->view('template/index_v', $this->dataTemplate);
+            $this->load->view('template/welcome_index', $this->dataTemplate);
         }
     }
     protected function renderWithTemplate3() {
@@ -130,22 +86,8 @@ class MY_Controller extends CI_Controller
 
 
     protected function renderWithTemplate2() {
-
         // Set Breadcrumb.
-        $breadcrumb = NULL;
-        if($this->uri->rsegment_array()[1] !== "index") {
-            if(array_key_exists($this->uri->rsegment_array()[1], $this->rBreadcrumb)) {
-                $breadcrumb = $this->rBreadcrumb[$this->uri->rsegment_array()[1]];
-                $countBreadCrumb = count($breadcrumb);
-
-                if ($this->lastBreadcrumbCaption === NULL) {
-                    $breadcrumb[$countBreadCrumb-1]["link"] = NULL;
-                } else {
-                    $breadcrumb[$countBreadCrumb]["caption"] = $this->lastBreadcrumbCaption;
-                    $breadcrumb[$countBreadCrumb]["link"] = NULL;
-                }
-            }
-        }
+        $breadcrumb = $this->CreateBreadcrumb();
         // Set default data.
         $this->dataTemplate['level'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
         // making temlate and send data to view.
@@ -196,4 +138,58 @@ class MY_Controller extends CI_Controller
     }
     // **************************************************** End logged *********************************
 // End public method.
+
+// Private method.
+    private function CreateBreadcrumb() {
+        $breadcrumb = NULL;
+        if($this->routingCode === 1) {                   // Report/index
+            $breadcrumb = array(
+                [
+                    "caption"   => "รายงานข้อมูลขยะทะเล",
+                    "link"      => null,
+                ],
+            );
+        } else if($this->routingCode === 1.1) {          // Report/mapPlace
+            $breadcrumb = array(
+                [
+                    "caption"   => "รายงานข้อมูลขยะทะเล",
+                    "link"      => "report",
+                ],
+                [
+                    "caption"   => "แผนที่แสดงตำแหน่งกิจกรรม",
+                    "link"      => null,
+                ]
+            );
+        } else if($this->routingCode === 2) {            // publicRelations/[index||articleCategory]
+            $breadcrumb = array(
+                [
+                    "caption"   => "ข่าวสารโครงการ",
+                    "link"      => null,
+                ]
+            );
+        } else if($this->routingCode === 2.1) {          // publicRelations/fullContent
+            $breadcrumb = array(
+                [
+                    "caption"   => "ข่าวสารโครงการ",
+                    "link"      => "publicRelations/articleCategory/1/0",
+                ],
+                [
+                    "caption"   => "เนื้อหา",
+                    "link"      => null,
+                ]
+            );
+        } else if($this->routingCode == 4) {             // eventImage/index
+            $breadcrumb = array(
+                [
+                    "caption"   => "ภาพกิจกรรม",
+                    "link"      => null,    
+                ]
+            );
+        } else {
+            $breadcrumb = NULL;
+        }
+
+        return $breadcrumb;
+    }
+// End private method.
 }

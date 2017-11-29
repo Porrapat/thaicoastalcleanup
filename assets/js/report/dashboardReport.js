@@ -31,10 +31,9 @@ function initDaterange() {
             'Last Year': [moment().subtract(1, 'year').startOf('year')
             , moment().subtract(1, 'year').endOf('year')],
 
-            'Last 5 Year': [moment().subtract(5, 'year').startOf('year')
-            , moment().subtract(1, 'year').endOf('year')],
-            'Last 10 Year': [moment().subtract(10, 'year').startOf('year')
-            , moment().subtract(1, 'year').endOf('year')]
+            '2 Year': [moment().subtract(1, 'year').startOf('year'), moment()],
+            '5 Year': [moment().subtract(5, 'year').startOf('year'), moment()],
+            '10 Year': [moment().subtract(10, 'year').startOf('year'), moment()]
         }
     }, cb);
 

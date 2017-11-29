@@ -39,7 +39,7 @@ class welcome_homes extends MY_Controller {
    		$this->data = $data;
 		$this->body = 'frontend/welcome_home/view/index';
 		$this->isHomePage = true;
-		$this->renderWithTemplate2();	
+		$this->renderWithTemplate();	
 	}
 }
 
