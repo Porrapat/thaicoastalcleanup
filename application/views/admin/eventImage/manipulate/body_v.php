@@ -7,7 +7,7 @@
 					<div class="panel-heading text-center">
 						<h3>
 							ภาพกิจกรรมโครงการ : 
-							<?php echo isset($dsIccCard[0]["Project_Name"]) ? $dsIccCard[0]["Project_Name"] : "" ?>
+							<div><?php echo isset($dsIccCard[0]["Project_Name"]) ? $dsIccCard[0]["Project_Name"] : "" ?></div>
 						</h3>
 					</div>
 					<div class="panel-body">

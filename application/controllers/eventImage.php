@@ -31,11 +31,10 @@ class EventImage extends MY_Controller {
 	public function manipulate() {
 		if(!($this->is_logged())) {exit(0);}
 
-		if ($this->input->server('REQUEST_METHOD') === 'POST'){
+//		if ($this->input->server('REQUEST_METHOD') === 'POST'){
 			$iccCardId = $this->input->post('iccCardId');
 
 			// Prepare data of view.
-			//$iccCardId = 18;
 			$this->data = $this->GetDataForRenderManipulatePage($iccCardId);
 	
 			// Breadcrumb.
@@ -44,12 +43,12 @@ class EventImage extends MY_Controller {
 			$this->data['dataTypeName'] = $this->dataTypeName;
 
 			// Prepare Template.
-			$this->extendedCss = 'backend/eventImage/manipulate/extendedCss_v';
-			$this->body = 'backend/eventImage/manipulate/body_v';
-			$this->footer = 'backend/eventImage/manipulate/footer_v';
-			$this->extendedJs = 'backend/eventImage/manipulate/extendedJs_v';
+			$this->extendedCss = 'admin/eventImage/manipulate/extendedCss_v';
+			$this->body = 'admin/eventImage/manipulate/body_v';
+			$this->footer = 'admin/eventImage/manipulate/footer_v';
+			$this->extendedJs = 'admin/eventImage/manipulate/extendedJs_v';
 			$this->renderWithTemplate();
-		}
+//		}
 	}
 	// ---------------------------------------------------------------------------------------- Upload Image.
 	public function uploadImage() {
@@ -95,6 +94,8 @@ class EventImage extends MY_Controller {
 			// Initial path file&folder.
 				$config['upload_path'] = './uploads/Event_Images/';
 				$target_path = './uploads/Event_Images/thumbs/';
+				$newFileName = "project_" . $iccCardId . "-" . date('ymdHis');
+				$config['file_name'] = $newFileName;
 			// Config file type, size save method.
 				$config['allowed_types'] = 'gif|jpg|png|jpeg';
 				$config['max_size'] = '20000'; //limit 1 mb
@@ -115,7 +116,8 @@ class EventImage extends MY_Controller {
 					echo $files['imageFile']['name'][$i].' '.$error['upload_error']; exit;
 				} else {
 			// Success upload file : Prepare upload file info for insert to database.
-					$fileName = $_FILES['imageFile']['name'];
+					//$fileName = $_FILES['imageFile']['name'];
+					$fileName = $newFileName;
 					$data = array('upload_data' => $this->upload->data()); 
 
 			// Thumnail : Resize Image.
@@ -143,7 +145,8 @@ class EventImage extends MY_Controller {
 				}			
 			}
 		}
-		redirect(site_url('eventImage/manipulate'));
+		//redirect(site_url('eventImage/manipulate'));
+		redirect($_SERVER['REQUEST_URI'], 'refresh');
 	}
 // End Private function.
 }
