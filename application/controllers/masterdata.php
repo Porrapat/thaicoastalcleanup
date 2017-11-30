@@ -57,7 +57,7 @@ class Masterdata extends MY_Controller {
 		$this->body = 'backend/masterdata/list/body_v';
 		$this->extendedJs = 'backend/masterdata/list/extendedJs_v';
 		//$this->renderWithTemplate();
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
     }
     public function addNew() {
     	if(!($this->is_logged())) {exit(0);}
@@ -209,7 +209,7 @@ class Masterdata extends MY_Controller {
 		$this->footer = 'backend/masterdata/input/footer_v';
 		$this->extendedJs = 'backend/masterdata/input/extendedJs_v';
 		//$this->renderWithTemplate();
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
     }
     // ---------------------------------------------- Initial input mode -------------------------------
     private function GetDataForInputDisplay($dataType=1, $rowID=null) {

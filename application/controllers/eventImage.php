@@ -31,9 +31,11 @@ class EventImage extends MY_Controller {
 	public function manipulate() {
 		if(!($this->is_logged())) {exit(0);}
 
-		//if ($this->input->server('REQUEST_METHOD') === 'POST'){
+		if ($this->input->server('REQUEST_METHOD') === 'POST'){
+			$iccCardId = $this->input->post('iccCardId');
+
 			// Prepare data of view.
-			$iccCardId = 18;
+			//$iccCardId = 18;
 			$this->data = $this->GetDataForRenderManipulatePage($iccCardId);
 	
 			// Breadcrumb.
@@ -47,7 +49,7 @@ class EventImage extends MY_Controller {
 			$this->footer = 'backend/eventImage/manipulate/footer_v';
 			$this->extendedJs = 'backend/eventImage/manipulate/extendedJs_v';
 			$this->renderWithTemplate();
-		//}
+		}
 	}
 	// ---------------------------------------------------------------------------------------- Upload Image.
 	public function uploadImage() {

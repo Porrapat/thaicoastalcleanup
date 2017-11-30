@@ -227,7 +227,8 @@ $level = 1;
                                             </button>
                                         </td>');
                                     echo('<td class="text-center">
-                                        <a href="#" id="eventImage" class="button button-block button-rounded button-large">
+                                        <a href="#" id="eventImage" value='.$row['id'].' 
+                                        class="button button-block button-rounded button-large">
                                             ภาพกิจกรรม
                                         </a>
                                     </td>');

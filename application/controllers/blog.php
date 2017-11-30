@@ -2,7 +2,9 @@
 
 class blog extends MY_Controller {
         function __construct() {
-		parent::__construct();
+        parent::__construct();
+        $this->isBackend = true;
+        
 		$this->load->model('selectblog');  
 		$this->load->helper("url");
 		$this->load->library("pagination");
@@ -124,7 +126,7 @@ class blog extends MY_Controller {
 	    
 	    $this->data = $data;
 		$this->body = 'admin/blog/create';
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
 	}
 
 
@@ -160,7 +162,7 @@ class blog extends MY_Controller {
    
         $this->data = $data;
 		$this->body = 'admin/blog/index';
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
     }
 
     public function posting($source=null) {
@@ -344,7 +346,7 @@ class blog extends MY_Controller {
    		$data["id"] = $id;
         $this->data = $data;
 		$this->body = 'admin/blog/edit';
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
     }
 
 

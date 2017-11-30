@@ -111,7 +111,7 @@ class MY_Controller extends CI_Controller
         $this->dataTemplate['extendedJs'] = ((($this->extendedJs != null) && ($this->extendedJs != ''))
             ? $this->load->view($this->extendedJs, $this->data, true) : '');
 
-        if($this->isHomePage) {
+        if($this->isBackend) {
             $this->load->view('template/welcome_index', $this->dataTemplate);
         } else {
             $this->load->view('template/welcome_index', $this->dataTemplate);

@@ -2,7 +2,8 @@
 
 class slideshow extends MY_Controller {
     public function __construct() {
-		parent::__construct();
+        parent::__construct();
+        $this->isBackend = true;
 	}
 
     public function index() {
@@ -23,7 +24,7 @@ class slideshow extends MY_Controller {
         $this->data = $data;
 
 		$this->body = 'admin/slideshow/index';
-		$this->renderWithTemplate3();	
+		$this->renderWithTemplate();	
 	}
 
 
@@ -64,7 +65,7 @@ class slideshow extends MY_Controller {
         
 
 		$this->body = 'admin/slideshow/create';
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
 
 	}
 
@@ -144,7 +145,7 @@ class slideshow extends MY_Controller {
         $this->data = $data;
 
 		$this->body = 'admin/slideshow/edit';
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
 
 
 

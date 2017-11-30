@@ -56,7 +56,7 @@ class PublicRelations extends MY_Controller {
 
    		$this->data = $data;
 		$this->body = 'frontend/publicRelations/full/body_v';
-		$this->renderWithTemplate2();	
+		$this->renderWithTemplate();	
 	}
 
 	public function content_list(){
@@ -105,7 +105,7 @@ class PublicRelations extends MY_Controller {
         $this->data = $data;
 
 		$this->body = 'frontend/publicRelations/list/body_v';
-		$this->renderWithTemplate2();
+		$this->renderWithTemplate();
 	}
 
 
@@ -129,7 +129,7 @@ class PublicRelations extends MY_Controller {
 		$this->extendedCss = 'frontend/publicRelations/list/extendedCss_v';
 		//$this->body = 'frontend/publicRelations/list/body_v';
 		$this->extendedJs = 'frontend/publicRelations/list/extendedJs_v';
-		$this->renderWithTemplate2();
+		$this->renderWithTemplate();
 	}
 
 	public function fullContent() {
@@ -148,7 +148,7 @@ class PublicRelations extends MY_Controller {
 		$this->extendedCss = 'frontend/publicRelations/full/extendedCss_v';
 		$this->body = 'frontend/publicRelations/full/body_v';
 		$this->extendedJs = 'frontend/publicRelations/full/extendedJs_v';
-		$this->renderWithTemplate2(); */
+		$this->renderWithTemplate(); */
 	}
 // End Public function.
 

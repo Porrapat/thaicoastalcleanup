@@ -44,6 +44,7 @@ function initDaterange() {
 // -------------------------------------------------------------------------------------------- Submit.
 $(document).on("click", "a#eventImage", function(e){
     e.preventDefault();
+    alert($('[name=iccCardId]').val());
     $('form#formChoose').attr('action', "eventImage/manipulate").submit();
 });
 // -------------------------------------------------------------------------------------------- Search.
