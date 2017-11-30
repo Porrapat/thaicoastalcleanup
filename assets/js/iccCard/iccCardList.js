@@ -110,7 +110,7 @@ function filterThenRenderIccCardList(pageCode) {
             swal("Error", textStatus + xhr.responseText, "error");
         },
         complete: function() {},
-        success: function(rDataResult) {alert("test");
+        success: function(rDataResult) {
             $('div#paginationLinks').html(rDataResult.paginationLinks);
             RenderBodyTable(rDataResult.dsIccCardList, rDataResult.rIccCardStatus, rDataResult.userAuthenLevel);
         }
