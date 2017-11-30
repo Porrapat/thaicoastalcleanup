@@ -61,7 +61,7 @@ $(document).on("click", "a#eventImage", function(e){
     $('form#formChoose').attr('action', "eventImage/manipulate").submit();
 });
 // -------------------------------------------------------------------------------------------- Search.
-$('button#search').on('click', function(e) { filterThenRenderIccCardList(); });
+$('button#search').on('click', function(e) { filterThenRenderIccCardList(0); });
 // -------------------------------------------------------------------------------------------- Click command.
 $(document).on('click', 'button#approveIccCard', function(e) { confirmApproveIccCardStatus(getConfirmInfo(e)); });
 // -------------------------------------------------------------------------------------------- End Click command.
@@ -72,8 +72,8 @@ $(document).on('click', 'button#approveIccCard', function(e) { confirmApproveIcc
 // ******************************************************************************************** Method.
 // -------------------------------------------------------------------------------------------- AJAX.
 // ____________________________________________________________________________________________ Search
-function filterThenRenderIccCardList() {
-    let baseUrl = window.location.origin + "/" + window.location.pathname.split('/')[1];
+function filterThenRenderIccCardList(pageCode) {
+    let baseUrl = window.location.origin + "/" + window.location.pathname.split('/')[1] + "/";
     picker = $('#daterange').data('daterangepicker');
     let strDateStart = picker.startDate.format('YYYY-MM-DD');
     let strDateEnd = picker.endDate.format('YYYY-MM-DD');
@@ -83,21 +83,25 @@ function filterThenRenderIccCardList() {
     let orgId = $('select#orgId :selected').val();
     let garbageTypeId = $('select#garbageTypeId :selected').val();
     let iccCardStatusCode = $('select#iccCardStatusCode :selected').val();
+    page = ( (pageCode) ? pageCode : 0); 
 
-    let data = {"rData" : {
-        'strDateStart'      : strDateStart,
-        'strDateEnd'        : strDateEnd,
-        'provinceCode'      : provinceCode,
-        'amphurCode'        : amphurCode,
-        'projectName'       : projectName,
-        'orgId'             : orgId,
-        'garbageTypeId'     : garbageTypeId,
-        'iccCardStatusCode' : iccCardStatusCode
-    }};
+    let data = {
+        "rDataFilter" : {
+            'strDateStart'      : strDateStart,
+            'strDateEnd'        : strDateEnd,
+            'provinceCode'      : provinceCode,
+            'amphurCode'        : amphurCode,
+            'projectName'       : projectName,
+            'orgId'             : orgId,
+            'garbageTypeId'     : garbageTypeId,
+            'iccCardStatusCode' : iccCardStatusCode
+        },
+        "page" : page
+    };
 
     // Get ICC Card List by ajax.
     $.ajax({
-        url: 'iccCard/ajaxGetIccCardList',
+        url: baseUrl + 'iccCard/ajaxGetIccCardList',
         type: 'post',
         data: data,
         dataType: 'json',
@@ -106,11 +110,19 @@ function filterThenRenderIccCardList() {
             swal("Error", textStatus + xhr.responseText, "error");
         },
         complete: function() {},
-        success: function(result) {
-            RenderBodyTable(result.dsIccCardList, result.rIccCardStatus, result.userAuthenLevel);
+        success: function(rDataResult) {alert("test");
+            $('div#paginationLinks').html(rDataResult.paginationLinks);
+            RenderBodyTable(rDataResult.dsIccCardList, rDataResult.rIccCardStatus, rDataResult.userAuthenLevel);
         }
     });
 }
+// ____________________________________________________________________________________________ Pagination.
+$(document).on("click", ".pagination li a", function(e) {
+    e.preventDefault();
+
+    let pageCode = $(this).data("ci-pagination-page");
+    filterThenRenderIccCardList(pageCode);
+});
 // -------------------------------------------------------------------------------------------- End AJAX.
 
 // -------------------------------------------------------------------------------------------- Click command.

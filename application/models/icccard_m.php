@@ -12,36 +12,22 @@ class IccCard_m extends CI_Model {
 
 // Public function.
 // -------------------------------------------------------------------------------------------- Get
-// +++ To view ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public function GetDataForViewDisplay($rFilter=null) {
-		$result["dsView"] = $this->GetIccCardList($rFilter);
-
-		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
-		$result['dsProvince'] = $this->GetDsProvince();
-		$result['dsAmphur'] = $this->GetDsAmphur();
-		$result['dsGarbageType'] = $this->GetDsGarbageType();
-		$result['dsProjectName'] = $this->GetDsProjectName();
-		$result['dsOrg'] = $this->GetDsOrg();
-
-		return $result;
-	}
-	public function GetFullIccCardList($rFilter=null) {
-		$result['dsIccCardList'] = $this->GetIccCardList($rFilter);
-
-		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
-		$result['userAuthenLevel'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
-
-		return $result;
-	}
-	private function GetIccCardList($rFilter=null) {
+// +++ To list view +++++++++++++++++++++++++++++++++++++++++++++++++
+	public function GetIccCardList($rFilter=null, $limit=null, $offset=null) {
 		$this->load->model('dataclass/iccCard_d');
 		$this->load->model('dataclass/cleanupType_d');
 		$this->load->model('dataclass/iccCardStatus_d');
 		$this->load->model('dataclass/province_d');
 		$this->load->model('dataclass/amphur_d');
 
-    	// Prepare Filter.
+    // Prepare Filter.
 		$sqlExtend = $this->CreateSqlWhereAndJoinTbl($rFilter);
+		// Prepare Limit (Pagination).
+		$sqlLimit = "";
+		if(($limit !== NULL) && ($limit > 0)) {
+			$offset = ( (($offset !== NULL) && ($offset >= 0)) ? $offset : 0);
+			$sqlLimit = " LIMIT " . $offset . ", " . $limit;
+		}
 
 		// Create sql string.
 		$sqlStr = "SELECT DISTINCT c." . $this->iccCard_d->colId
@@ -71,7 +57,9 @@ class IccCard_m extends CI_Model {
 				. " ORDER BY p." . $this->province_d->colProvinceName
 				. ", a." . $this->amphur_d->colAmphurName
 				. ", c." . $this->iccCard_d->colEventDate
-				. ", c." . $this->iccCard_d->colProjectName;
+				. ", c." . $this->iccCard_d->colProjectName
+				
+				. $sqlLimit;
 
 		// Execute sql.
 		$this->load->model('db_m');
@@ -79,7 +67,7 @@ class IccCard_m extends CI_Model {
 
     	return $result;
 	}
-// +++ End To view ++++++++++++++++++++++++++++++++++++++++++++++++++
+// +++ End To list view +++++++++++++++++++++++++++++++++++++++++++++
 
 // +++ To input +++++++++++++++++++++++++++++++++++++++++++++++++++++
 	// ///////////////// From Database ///////////////////////////////////
@@ -280,6 +268,7 @@ class IccCard_m extends CI_Model {
 
 
 // -------------------------------------------------------------------------------------------- Get For Combobox
+	// +++ To input ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	public function GetDataForComboBox($fkProvinceCode=null) {
 		$result['dsCleanupType'] = $this->GetDsCleanupType();
 		$result['dsOrg'] = $this->GetDsOrg();
@@ -291,6 +280,24 @@ class IccCard_m extends CI_Model {
 		$result['dsAmphur'] = $this->GetDsAmphurByProvinceCode($fkProvinceCode);
 
 		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
+
+		return $result;
+	}
+	// +++ To view : +++++++++++++++++++++++++++++++++++++++++++++++++++++
+	public function GetDataForComboBoxListView() {
+		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
+		$result['dsProvince'] = $this->GetDsProvince();
+		$result['dsAmphur'] = $this->GetDsAmphur();
+		$result['dsGarbageType'] = $this->GetDsGarbageType();
+		$result['dsProjectName'] = $this->GetDsProjectName();
+		$result['dsOrg'] = $this->GetDsOrg();
+
+		return $result;
+	}
+	// +++ To view : AJAX ++++++++++++++++++++++++++++++++++++++++++++++++
+	public function GetDataForComboBoxAjaxListView() {
+		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
+		$result['userAuthenLevel'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
 
 		return $result;
 	}
@@ -319,6 +326,14 @@ class IccCard_m extends CI_Model {
 		return $result;
 	}
 // -------------------------------------------------------------------------------------------- End Get For Combobox
+
+// -------------------------------------------------------------------------------------------- Get Count record.
+	public function GetIccCardRecordCount($rFilter=null) {
+		$dsIccCardList = $this->GetIccCardList($rFilter);
+
+		return count($dsIccCardList);
+	}
+// -------------------------------------------------------------------------------------------- End Get Count record.
 // -------------------------------------------------------------------------------------------- End Get
 
 

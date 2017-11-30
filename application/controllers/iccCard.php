@@ -3,6 +3,7 @@ class IccCard extends MY_Controller {
 // Property.
 	private $dataTypeName = "ICC Card";
 	private $inputModeName = [1 => 'เพิ่มข้อมูล', 2 => 'แก้ไข'];
+	private $paginationLimit = 10;
 // End Property.
 
 
@@ -70,10 +71,15 @@ class IccCard extends MY_Controller {
 		if(!($this->is_logged())) {exit(0);}
 
 		if ($this->input->server('REQUEST_METHOD') === 'POST') {
-			$rData = $this->input->post('rData');
+			$rDataFilter = $this->input->post('rDataFilter');
+			$page = $this->input->post('page');
 
 			$this->load->model('iccCard_m');
-			$dsData  = $this->iccCard_m->GetFullIccCardList($rData);
+			$dsData = $this->iccCard_m->GetDataForComboBoxAjaxListView();
+
+			$result = $this->setPagination($rDataFilter, $page);
+			$dsData["dsIccCardList"] = $result["dsIccCardList"];
+			$dsData["paginationLinks"] = $result["paginationLinks"];
 
 			echo json_encode($dsData);
 		}
@@ -192,8 +198,9 @@ class IccCard extends MY_Controller {
 
 
 // Private function.
-	//
-	private function setPagination() {
+	// ---------------------------------------------------------------------------------------- Set pagination.
+	private function setPagination($rFilter=null, $page=0) {
+		$this->load->library("pagination");
 		$this->load->model('iccCard_m');
 
 		$config = array();
@@ -211,24 +218,33 @@ class IccCard extends MY_Controller {
 		$config['first_tagl_close'] = "</li>";
 		$config['last_tag_open'] = "<li>";
 		$config['last_tagl_close'] = "</li>";
-		$config["base_url"] = '#';
-		$config["total_rows"] = $this->iccCard_m->record_count();
-		$config["per_page"] = 15;
+		//$config['use_page_numbers'] = TRUE;
+		$config["base_url"] = "#";
+		$config["total_rows"] = $this->iccCard_m->GetIccCardRecordCount($rFilter);
+		$config["per_page"] = $this->paginationLimit;
 		$config["uri_segment"] = 3;
 		$choice = $config["total_rows"] / $config["per_page"];
 		$config["num_links"] = round($choice);
 
 		$this->pagination->initialize($config);
 
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$data["obj"] = $this->iccCard_m->fetch_blog($config["per_page"], $page);
-		$data["links"] = $this->pagination->create_links();
+		//$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$data["dsIccCardList"] = $this->iccCard_m->GetIccCardList($rFilter, $config["per_page"], $page);
+		$data["paginationLinks"] = $this->pagination->create_links();
 
+		return $data;
 	}
+
+
   // ---------------------------------------------------------------------------------------- Initial view mode
 	private function GetDataForViewDisplay() {
 		$this->load->model("iccCard_m");
-		$rDsData = $this->iccCard_m->GetDataForViewDisplay();
+		
+		$rDsData = $this->iccCard_m->GetDataForComboBoxListView();
+
+		$result = $this->setPagination();
+		$rDsData["dsView"] = $result["dsIccCardList"];
+		$rDsData["paginationLinks"] = $result["paginationLinks"];
 
 		return $rDsData;
 	}

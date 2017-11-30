@@ -159,7 +159,7 @@
                     <table class="table table-striped" id="iccCard">
                         <thead>
                             <tr>
-                                <th class="text-center" width="40">No.</th>
+                                <th class="text-center" width="40"></th>
                                 <?php 
                                     if(count($dsView) > 0) {
                                         $i=0;
@@ -180,7 +180,7 @@
                             foreach($dsView as $row) {
                         ?>
                             <tr>
-                                <td class="text-center"><?php $i++ ?></td>
+                                <td class="text-center"><?php echo($i++); ?></td>
                         <?php
                                     $lastColumn = count($row) - 1;
                                     $j = 0;
@@ -223,7 +223,7 @@
                         </tbody>
                     </table>
                 <!-- End Tabel view display -->
-                    <div class="pagination"> <p><?php //echo $links; ?></p> </div>
+                    <div class="pagination" id="paginationLinks"> <p><?php echo $paginationLinks; ?></p> </div>
                     <?php echo form_close(); ?><!-- Close form choose -->
                 </div>
             </section>
@@ -234,33 +234,21 @@
 </section>
 
 <div id="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-10 col-md-10 col-lg-10"></div>
+    <div class="inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-10 col-md-10 col-lg-10"></div>
 
-            <div class="col-xs-2 col-md-2 col-lg-2">
-                <a href="#">Back to top</a>
+                <div class="col-xs-2 col-md-2 col-lg-2">
+                    <a href="#">Back to top</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!--
-    <div id="footer">
-        <hr>
-        <div class="inner">
-        </div>
-    </div>
--->
  </section>
 
               </div>
             </div>
         </div>
 </section>
-
-<?php /*
-<button type="submit" class="btn btn-success"
-id="editIccCard" name="iccCardId" value='.$row['id'].'>
-แก้ไข
-</button>
-*/?>
