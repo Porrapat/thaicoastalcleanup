@@ -42,9 +42,22 @@ function initDaterange() {
 
 
 // -------------------------------------------------------------------------------------------- Submit.
+$(document).on("click", "a#editIccCard", function(e){
+    e.preventDefault();
+
+    let tr = $(e.target).closest('tr');
+    let iccCardId = tr.find('td input#iccCardId').val();
+    $('input[name=iccCardId]').val(iccCardId);
+
+    $('form#formChoose').submit();
+});
 $(document).on("click", "a#eventImage", function(e){
     e.preventDefault();
-    alert($('[name=iccCardId]').val());
+
+    let tr = $(e.target).closest('tr');
+    let iccCardId = tr.find('td input#iccCardId').val();
+    $('input[name=iccCardId]').val(iccCardId);
+    
     $('form#formChoose').attr('action', "eventImage/manipulate").submit();
 });
 // -------------------------------------------------------------------------------------------- Search.
@@ -107,9 +120,9 @@ function successApproveIccCardStatus() { window.location.href = window.location.
 // -------------------------------------------------------------------------------------------- Tool.
 function getConfirmInfo(e) {
     let tr = $(e.target).closest('tr');
-    
+
     let rData = {
-        "iccCardId"     : tr.find('td button#editIccCard').val(),
+        "iccCardId"     : tr.find('td input#iccCardId').val(),
         "projectName"   : tr.find('td:nth-child(3)').text(),
         "provinceName"  : tr.find('td:nth-child(6)').text(),
         "eventDate"     : tr.find('td:nth-child(7)').text(),
@@ -128,7 +141,6 @@ function RenderBodyTable(dsIccCardList, rIccCardStatus, userAuthenLevel) {
         let row = dsIccCardList[i];
         html += '<tr>';
         html += '<td class="text-center">' + (i+1) + '</td>';
-        html += '<td class="text-left">' + row["พื้นที่เก็บขยะ"] + '</td>';
         html += '<td class="text-left">' + row["ชื่อโครงการ"] + '</td>';
         html += '<td class="text-left">' + row["ชื่อสถานที่ทำกิจกรรม"] + '</td>';
         html += '<td class="text-left">' + row["อำเภอ"] + '</td>';
@@ -142,8 +154,12 @@ function RenderBodyTable(dsIccCardList, rIccCardStatus, userAuthenLevel) {
         html += '</td>';
 
         html += '<td class="text-center">';
-        html += '<button type="submit" class="btn btn-success"'
-        html += ' id="editIccCard" name="iccCardId" value=' + row['id'] + '>แก้ไข</button>';
+        html += '<a style="float:left; margin-right:8px;"';
+        html += ' title="แก้ไขแบบฟอร์ม" class="btn btn-primary btn-xs"';
+        html += ' href="#" role="button" id="editIccCard">';
+        html += '<i class="fa fa-cog"></i>';
+        html += '</a>';
+        html += '<input type="hidden" id="iccCardId" value=' + row['id'] + '>'
         html += '</td>';
 
         html += '<td class="text-center">';

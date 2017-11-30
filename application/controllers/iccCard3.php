@@ -36,9 +36,9 @@ class IccCard extends MY_Controller {
 		$this->data['dataTypeName'] = $this->dataTypeName;
 		
 		// Prepare Template.
-		$this->extendedCss = 'admin/iccCard/list/extendedCss_v';
-		$this->body = 'admin/iccCard/list/body_v';
-		$this->extendedJs = 'admin/iccCard/list/extendedJs_v';
+		$this->extendedCss = 'backend/iccCard/list/extendedCss_v';
+		$this->body = 'backend/iccCard/list/body_v';
+		$this->extendedJs = 'backend/iccCard/list/extendedJs_v';
 		$this->renderWithTemplate();
 	}
 	public function addNew() {
@@ -211,11 +211,11 @@ class IccCard extends MY_Controller {
 		$this->data['inputMode'] = $inputMode;
 
 		// Prepare Template.
-		$this->extendedCss = 'admin/iccCard/input/extendedCss_v';
-		$this->header = 'admin/iccCard/input/header_v';
-		$this->body = 'admin/iccCard/input/body_v';
-		$this->footer = 'admin/iccCard/input/footer_v';
-		$this->extendedJs = 'admin/iccCard/input/extendedJs_v';
+		$this->extendedCss = 'backend/iccCard/input/extendedCss_v';
+		$this->header = 'backend/iccCard/input/header_v';
+		$this->body = 'backend/iccCard/input/body_v';
+		$this->footer = 'backend/iccCard/input/footer_v';
+		$this->extendedJs = 'backend/iccCard/input/extendedJs_v';
 		$this->renderWithTemplate();
 	}
     // ---------------------------------------------------------------------------------------- Initial input mode

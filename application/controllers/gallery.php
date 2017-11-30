@@ -4,6 +4,7 @@ class gallery extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
+		$this->isBackend = true;
 		$this->load->helper("url");
 		$this->load->library('form_validation');
 		
@@ -42,7 +43,7 @@ class gallery extends MY_Controller {
         $this->data = $data;
 
 		$this->body = 'admin/gallery/index';
-		$this->renderWithTemplate3();	
+		$this->renderWithTemplate();	
 	}
 
 

@@ -45,8 +45,7 @@ class IccCard_m extends CI_Model {
 		$sqlExtend = $this->CreateSqlWhereAndJoinTbl($rFilter);
 
 		// Create sql string.
-		$sqlStr = "SELECT DISTINCT(c." . $this->iccCard_d->colId .")"
-				. ", ct." . $this->cleanupType_d->colName . " พื้นที่เก็บขยะ"
+		$sqlStr = "SELECT DISTINCT c." . $this->iccCard_d->colId
 				. ", c." . $this->iccCard_d->colProjectName . " ชื่อโครงการ"
 				. ", c." . $this->iccCard_d->colEventPlaceName . " ชื่อสถานที่ทำกิจกรรม"
 				. ", a." . $this->amphur_d->colAmphurName . " อำเภอ"
@@ -55,10 +54,6 @@ class IccCard_m extends CI_Model {
 				. ", c." . $this->iccCard_d->colFkIccCardStatus . " สถานะของโครงการ"
 
 				. " FROM " . $this->iccCard_d->tableName . " AS c"
-
-				. " LEFT JOIN " . $this->cleanupType_d->tableName . " AS ct"
-				. " ON c." . $this->iccCard_d->colFkCleanupType
-				. "=ct." . $this->cleanupType_d->colId
 
 				. " LEFT JOIN " . $this->iccCardStatus_d->tableName . " AS cs"
 				. " ON c." . $this->iccCard_d->colFkIccCardStatus
@@ -77,8 +72,7 @@ class IccCard_m extends CI_Model {
 				. " ORDER BY p." . $this->province_d->colProvinceName
 				. ", a." . $this->amphur_d->colAmphurName
 				. ", c." . $this->iccCard_d->colEventDate
-				. ", c." . $this->iccCard_d->colProjectName
-				. ", ct." . $this->cleanupType_d->colName;
+				. ", c." . $this->iccCard_d->colProjectName;
 
 		// Execute sql.
 		$this->load->model('db_m');

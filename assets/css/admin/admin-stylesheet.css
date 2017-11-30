@@ -1,0 +1,26 @@
+.ap-questions-featured {
+    margin-left: 3px;
+    border: medium none;
+    color: #ff951e;
+    display: inline;
+    font-size: 16px;
+    height: auto;
+    margin-right: 5px;
+
+    position: static;
+    vertical-align: baseline;
+    width: auto;
+}
+.ap-questions-featured2 {
+    margin-left: 3px;
+    border: medium none;
+    color: #666;
+    display: inline;
+    font-size: 16px;
+    height: auto;
+    margin-right: 5px;
+
+    position: static;
+    vertical-align: baseline;
+    width: auto;
+}
