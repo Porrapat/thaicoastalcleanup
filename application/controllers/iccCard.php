@@ -38,7 +38,7 @@ class IccCard extends MY_Controller {
 		$this->extendedCss = 'backend/iccCard/list/extendedCss_v';
 		$this->body = 'backend/iccCard/list/body_v';
 		$this->extendedJs = 'backend/iccCard/list/extendedJs_v';
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
 	}
 	public function addNew() {
 		if(!($this->is_logged())) {exit(0);}
@@ -215,7 +215,7 @@ class IccCard extends MY_Controller {
 		$this->body = 'backend/iccCard/input/body_v';
 		$this->footer = 'backend/iccCard/input/footer_v';
 		$this->extendedJs = 'backend/iccCard/input/extendedJs_v';
-		$this->renderWithTemplate3();
+		$this->renderWithTemplate();
 	}
     // ---------------------------------------------------------------------------------------- Initial input mode
 	private function GetDataForInputDisplay($rowID=null) {

@@ -40,6 +40,12 @@ function initDaterange() {
 // -------------------------------------------------------------------------------------------- End Page Load.
 
 
+
+// -------------------------------------------------------------------------------------------- Submit.
+$(document).on("click", "a#eventImage", function(e){
+    e.preventDefault();
+    $('form#formChoose').attr('action', "eventImage/manipulate").submit();
+});
 // -------------------------------------------------------------------------------------------- Search.
 $('button#search').on('click', function(e) { filterThenRenderIccCardList(); });
 // -------------------------------------------------------------------------------------------- Click command.
@@ -62,15 +68,17 @@ function filterThenRenderIccCardList() {
     let projectName = $('select#projectName :selected').val();
     let orgId = $('select#orgId :selected').val();
     let garbageTypeId = $('select#garbageTypeId :selected').val();
+    let iccCardStatusCode = $('select#iccCardStatusCode :selected').val();
 
     let data = {"rData" : {
-        'strDateStart'  : strDateStart,
-        'strDateEnd'    : strDateEnd,
-        'provinceCode'  : provinceCode,
-        'amphurCode'    : amphurCode,
-        'projectName'   : projectName,
-        'orgId'         : orgId,
-        'garbageTypeId' : garbageTypeId
+        'strDateStart'      : strDateStart,
+        'strDateEnd'        : strDateEnd,
+        'provinceCode'      : provinceCode,
+        'amphurCode'        : amphurCode,
+        'projectName'       : projectName,
+        'orgId'             : orgId,
+        'garbageTypeId'     : garbageTypeId,
+        'iccCardStatusCode' : iccCardStatusCode
     }};
 
     // Get ICC Card List by ajax.
@@ -100,7 +108,7 @@ function getConfirmInfo(e) {
     let tr = $(e.target).closest('tr');
     
     let rData = {
-        "iccCardId"     : tr.find('td:last-child button#editIccCard').val(),
+        "iccCardId"     : tr.find('td button#editIccCard').val(),
         "projectName"   : tr.find('td:nth-child(3)').text(),
         "provinceName"  : tr.find('td:nth-child(6)').text(),
         "eventDate"     : tr.find('td:nth-child(7)').text(),
@@ -127,14 +135,20 @@ function RenderBodyTable(dsIccCardList, rIccCardStatus, userAuthenLevel) {
         html += '<td class="text-left">' + row["วันที่ทำกิจกรรม"] + '</td>';
 
         html += '<td class="text-center">' + rIccCardStatus[row["สถานะของโครงการ"]];
-        if( (userAuthenLevel == 1) && (row["สถานะของโครงการ"] == 1) ) {
+        if( ((userAuthenLevel == 1) || (userAuthenLevel == 2)) && (row["สถานะของโครงการ"] == 1) ) {
             html += '<div><button id="approveIccCard" type="button" class="btn btn-info">อนุมัติ</button></div>';
         }
         html += '</td>';
 
         html += '<td class="text-center">';
         html += '<button type="submit" class="btn btn-success"'
-        html += ' id="editIccCard" name="iccCardId" value=' + row['id'] + '>Edit</button>';
+        html += ' id="editIccCard" name="iccCardId" value=' + row['id'] + '>แก้ไข</button>';
+        html += '</td>';
+
+        html += '<td class="text-center">';
+        html += '<a href="#" id="eventImage" class="button button-block button-rounded button-large">';
+        html += 'ภาพกิจกรรม';
+        html += '</a>';
         html += '</td>';
 
         html += '</tr>';

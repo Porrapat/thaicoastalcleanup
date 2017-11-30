@@ -45,7 +45,7 @@ $level = 1;
                 <div class="panel-body">
                     <div class="row">
                     <!-- Daterange Section -->
-                        <div class="col-xs-6 col-md-6 col-lg-6 text-left">
+                        <div class="col-xs-7 col-md-7 col-lg-7 text-left">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary disabled" type="button">ช่วงเวลา : </button>
@@ -57,7 +57,7 @@ $level = 1;
                             </div>
                         </div>
                     <!-- Province Section -->
-                        <div class="col-xs-6 col-md-6 col-lg-6">
+                        <div class="col-xs-5 col-md-5 col-lg-5">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary disabled" type="button">จังหวัด : </button>
@@ -73,7 +73,7 @@ $level = 1;
                             </div>
                         </div>
                     <!-- Department Section -->
-                        <div class="col-xs-6 col-md-6 col-lg-6">
+                        <div class="col-xs-7 col-md-7 col-lg-7">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary disabled" type="button">ชื่อหน่วยงาน : </button>
@@ -81,7 +81,7 @@ $level = 1;
                                 <select class="form-control" id="orgId">
                                     <option value="0" selected>เลือกทั้งหมด...</option>
                                     <?php
-                                    foreach($dsDepartment as $row) {
+                                    foreach($dsOrg as $row) {
                                         echo '<option value='.$row['id'].'>'.$row['department'].'</option>';
                                     }
                                     ?>
@@ -89,7 +89,7 @@ $level = 1;
                             </div>
                         </div>
                     <!-- Amphur Section -->
-                        <div class="col-xs-6 col-md-6 col-lg-6">
+                        <div class="col-xs-5 col-md-5 col-lg-5">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary disabled" type="button">อำเภอ : </button>
@@ -105,7 +105,7 @@ $level = 1;
                             </div>
                         </div>
                     <!-- Garbage Type Section -->
-                        <div class="col-xs-6 col-md-6 col-lg-6">
+                        <div class="col-xs-4 col-md-4 col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary disabled" type="button">ประเภทขยะ : </button>
@@ -120,8 +120,25 @@ $level = 1;
                                 </select>
                             </div>
                         </div>
+                    <!-- Icc Card Status Section -->
+                        <div class="col-xs-3 col-md-3 col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary disabled" type="button">สถานะโครงการ : </button>
+                                </span>
+                                <select class="form-control" id="iccCardStatusCode">
+                                    <option value="0" selected>เลือกทั้งหมด...</option>
+                                    <?php 
+                                    $cn = count($rIccCardStatus) + 1;
+                                    for($i=1; $i < $cn; $i++) {
+                                        echo '<option value=' . $i . '>' . $rIccCardStatus[$i] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
                     <!-- Project Name Section -->
-                        <div class="col-xs-5 col-md-5 col-lg-5">
+                        <div class="col-xs-4 col-md-4 col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary disabled" type="button">ชื่อโครงการ : </button>
@@ -171,7 +188,8 @@ $level = 1;
                                     }
                                 }
                             ?>
-                            <th class="text-center" width="40">Edit</th>
+                            <th class="text-center" width="40">แก้ไข</th>
+                            <th class="text-center" width="40">ภาพกิจกรรม</th>
                         </tr>
                     </thead>
                 
@@ -186,12 +204,8 @@ $level = 1;
                                     foreach($row as $value) {
                                         if ($j == $lastColumn) {
                                             echo('<td class="text-center">');
-                                            
-                                            
-                                            //echo "|".$value."|";
-                                            //print_r($rIccCardStatus);exit;
                                                 echo($rIccCardStatus[$value]);
-                                                if( ($level == 1) && ($value == 1) ) {
+                                                if( (($level == 1) || ($level == 2)) && ($value == 1) ) {
                                                     echo('<div>'
                                                             . '<button id="approveIccCard"'
                                                             . ' type="button" class="btn btn-info">'
@@ -209,9 +223,14 @@ $level = 1;
                                     echo('<td class="text-center">
                                             <button type="submit" class="btn btn-success"
                                             id="editIccCard" name="iccCardId" value='.$row['id'].'>
-                                                Edit
+                                                แก้ไข
                                             </button>
                                         </td>');
+                                    echo('<td class="text-center">
+                                        <a href="#" id="eventImage" class="button button-block button-rounded button-large">
+                                            ภาพกิจกรรม
+                                        </a>
+                                    </td>');
                                 echo ('</tr>');
                             }
                         ?>

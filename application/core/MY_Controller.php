@@ -23,6 +23,7 @@ class MY_Controller extends CI_Controller
     public $useJsTemplateHeadTag = false;
 
     public $isHomePage = false;
+    public $isBackend = true;
 // Set default condition variable.
 
 
@@ -32,7 +33,7 @@ class MY_Controller extends CI_Controller
         // Set Breadcrumb.
         $breadcrumb = $this->CreateBreadcrumb();
         // Set default data.
-        $this->dataTemplate['level'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
+        $this->data['level'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
         // making temlate and send data to view.
         $this->dataTemplate['breadcrumb'] = $breadcrumb;
         $this->dataTemplate['useCssTemplate'] = $this->useCssTemplate;
@@ -54,8 +55,8 @@ class MY_Controller extends CI_Controller
         $this->dataTemplate['extendedJs'] = ((($this->extendedJs != null) && ($this->extendedJs != ''))
             ? $this->load->view($this->extendedJs, $this->data, true) : '');
 
-        if($this->isHomePage) {
-            $this->load->view('template/welcome_index', $this->dataTemplate);
+        if($this->isBackend) {
+            $this->load->view('template/admin_template', $this->dataTemplate);
         } else {
             $this->load->view('template/welcome_index', $this->dataTemplate);
         }
@@ -78,7 +79,7 @@ class MY_Controller extends CI_Controller
 
         $this->dataTemplate['extendedJs'] = ((($this->extendedJs != null) && ($this->extendedJs != ''))
             ? $this->load->view($this->extendedJs, $this->data, true) : '');
-	//print_r( $this->data['rIccCardStatus']);exit;
+	    //print_r( $this->data['rIccCardStatus']);exit;
 
             $this->load->view('template/admin_template', $this->dataTemplate);
 
