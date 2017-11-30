@@ -12,7 +12,7 @@ class EventImage extends MY_Controller {
 // Constructor.
 	function __construct() {
 		parent::__construct();
-		$this->routingCode = 4;
+		$this->isBackend = true;
 	}
 // End Constructor.
 

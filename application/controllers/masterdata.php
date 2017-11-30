@@ -27,6 +27,7 @@ class Masterdata extends MY_Controller {
     public function __construct() {
         parent::__construct();
 
+		$this->isBackend = true;
 		$this->is_logged();
     }
 // End  Constructor.

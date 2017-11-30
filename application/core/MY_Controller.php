@@ -22,8 +22,7 @@ class MY_Controller extends CI_Controller
     public $useJsTemplate = true;
     public $useJsTemplateHeadTag = false;
 
-    public $isHomePage = false;
-    public $isBackend = true;
+    public $isBackend = false;
 // Set default condition variable.
 
 
