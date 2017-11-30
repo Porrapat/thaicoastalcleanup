@@ -15,9 +15,8 @@ class IccCard_m extends CI_Model {
 // +++ To view ++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public function GetDataForViewDisplay($rFilter=null) {
 		$result["dsView"] = $this->GetIccCardList($rFilter);
-		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
-		//$result["dsIccCardStatus"] = $this->GetDsIccCardStatus();
 
+		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
 		$result['dsProvince'] = $this->GetDsProvince();
 		$result['dsAmphur'] = $this->GetDsAmphur();
 		$result['dsGarbageType'] = $this->GetDsGarbageType();
@@ -28,8 +27,8 @@ class IccCard_m extends CI_Model {
 	}
 	public function GetFullIccCardList($rFilter=null) {
 		$result['dsIccCardList'] = $this->GetIccCardList($rFilter);
+
 		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
-		//$result["dsIccCardStatus"] = $this->GetDsIccCardStatus();
 		$result['userAuthenLevel'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
 
 		return $result;

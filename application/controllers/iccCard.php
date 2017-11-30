@@ -26,7 +26,7 @@ class IccCard extends MY_Controller {
 
 
 // Routing function.
-    // ---------------------------------------------------------------------------------------- For display
+  // ---------------------------------------------------------------------------------------- For display
 	private function view() {
 		if(!($this->is_logged())) {exit(0);}
 
@@ -73,12 +73,12 @@ class IccCard extends MY_Controller {
 			$rData = $this->input->post('rData');
 
 			$this->load->model('iccCard_m');
-			$dsData = $this->iccCard_m->GetFullIccCardList($rData);
+			$dsData  = $this->iccCard_m->GetFullIccCardList($rData);
 
 			echo json_encode($dsData);
 		}
 	}
-    // ---------------------------------------------------------------------------------------- Save data to DB 
+  // ---------------------------------------------------------------------------------------- Save data to DB 
 	public function ajaxSaveInputData() {
 		if(!($this->is_logged())) {exit(0);}
 
@@ -192,15 +192,48 @@ class IccCard extends MY_Controller {
 
 
 // Private function.
-    // ---------------------------------------------------------------------------------------- Initial view mode
+	//
+	private function setPagination() {
+		$this->load->model('iccCard_m');
+
+		$config = array();
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
+		$config["base_url"] = '#';
+		$config["total_rows"] = $this->iccCard_m->record_count();
+		$config["per_page"] = 15;
+		$config["uri_segment"] = 3;
+		$choice = $config["total_rows"] / $config["per_page"];
+		$config["num_links"] = round($choice);
+
+		$this->pagination->initialize($config);
+
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$data["obj"] = $this->iccCard_m->fetch_blog($config["per_page"], $page);
+		$data["links"] = $this->pagination->create_links();
+
+	}
+  // ---------------------------------------------------------------------------------------- Initial view mode
 	private function GetDataForViewDisplay() {
 		$this->load->model("iccCard_m");
-		$rData = $this->iccCard_m->GetDataForViewDisplay();
+		$rDsData = $this->iccCard_m->GetDataForViewDisplay();
 
-		return $rData;
+		return $rDsData;
 	}
 
-    // ---------------------------------------------------------------------------------------- Set input display mode
+  // ---------------------------------------------------------------------------------------- Set input display mode
 	private function SetInputDisplay($inputMode=1, $rowID=null) {
 		// Prepare data of view.
 		$this->data = $this->GetDataForInputDisplay($rowID);
@@ -218,7 +251,7 @@ class IccCard extends MY_Controller {
 		$this->extendedJs = 'admin/iccCard/input/extendedJs_v';
 		$this->renderWithTemplate();
 	}
-    // ---------------------------------------------------------------------------------------- Initial input mode
+  // ---------------------------------------------------------------------------------------- Initial input mode
 	private function GetDataForInputDisplay($rowID=null) {
 		$this->load->model('iccCard_m');
 
@@ -244,7 +277,7 @@ class IccCard extends MY_Controller {
     	return $result;
 	}
 
-    // -------------------------------------------------- Save input mode ------------------------------
+  // -------------------------------------------------- Save input mode ------------------------------
 	private function SaveDataToDB($dsData) {
     	$result = false;
 

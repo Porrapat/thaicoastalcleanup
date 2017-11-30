@@ -223,7 +223,7 @@
                         </tbody>
                     </table>
                 <!-- End Tabel view display -->
-                    <div class="pagination"> <p><?php echo $links; ?></p> </div>
+                    <div class="pagination"> <p><?php //echo $links; ?></p> </div>
                     <?php echo form_close(); ?><!-- Close form choose -->
                 </div>
             </section>
