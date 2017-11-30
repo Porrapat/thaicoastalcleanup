@@ -465,19 +465,7 @@ $(document).ready(function() {
 //flash:old:success_blog success_blog_del_img success_blog_del success_slide_del
 </script>
 
-<?php 
-	// Js in body tag.
-		// Js template plugin.
-			//if( ($useJsTemplate) && !($useJsTemplateHeadTag) ) {
-				$this->load->view('template/coreJs_v');
-			//}
-		// End Js template plugin.
 
-		// Js customize.
-			if(isset($extendedJs)) echo $extendedJs;
-		// Js customize.
-	// End Js in body tag.
-		?>
 </body>
 
 </html>
