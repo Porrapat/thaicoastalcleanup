@@ -83,39 +83,39 @@ class EventImage extends MY_Controller {
 	private function uploadImageAndCreateThumpnail($iccCardId=null) {
 		// Upload multiply.
 		if(isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] != '4') {
-            $files = $_FILES;
-            $count = count($_FILES['imageFile']['name']); // count element 
-            for($i=0; $i<$count; $i++) {
+			$files = $_FILES;
+			$count = count($_FILES['imageFile']['name']); // count element 
+			for($i=0; $i<$count; $i++) {
 			// Initial file obj.
-                $_FILES['imageFile']['name']= $files['imageFile']['name'][$i];
-                $_FILES['imageFile']['type']= $files['imageFile']['type'][$i];
-                $_FILES['imageFile']['tmp_name']= $files['imageFile']['tmp_name'][$i];
-                $_FILES['imageFile']['error']= $files['imageFile']['error'][$i];
+				$_FILES['imageFile']['name']= $files['imageFile']['name'][$i];
+				$_FILES['imageFile']['type']= $files['imageFile']['type'][$i];
+				$_FILES['imageFile']['tmp_name']= $files['imageFile']['tmp_name'][$i];
+				$_FILES['imageFile']['error']= $files['imageFile']['error'][$i];
 				$_FILES['imageFile']['size']= $files['imageFile']['size'][$i];
 			// Initial path file&folder.
-                $config['upload_path'] = './uploads/Event_Images/';
+				$config['upload_path'] = './uploads/Event_Images/';
 				$target_path = './uploads/Event_Images/thumbs/';
 			// Config file type, size save method.
-                $config['allowed_types'] = 'gif|jpg|png|jpeg';
-                $config['max_size'] = '20000'; //limit 1 mb
-                $config['remove_spaces'] = true;
-                $config['overwrite'] = false;
-                $config['max_width'] = '2560';// image max width 
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['max_size'] = '20000'; //limit 1 mb
+				$config['remove_spaces'] = true;
+				$config['overwrite'] = false;
+				$config['max_width'] = '2560';// image max width 
 				$config['max_height'] = '1440';
 			// Push Config to library.
-                $this->load->library('upload', $config);
+				$this->load->library('upload', $config);
 				$this->upload->initialize($config);
 			// Upload file.
 				$resultUpload = $this->upload->do_upload('imageFile');
 			// Validate upload file.
-                if(!$resultUpload) {
-			// Can't upload file : send UI for inform user.
+				if(!$resultUpload) {
+				// Can't upload file : send UI for inform user.
 					$error = array('upload_error' => $this->upload->display_errors());
 					$this->session->set_flashdata('error',  $error['upload_error']); 
 					echo $files['imageFile']['name'][$i].' '.$error['upload_error']; exit;
 				} else {
 			// Success upload file : Prepare upload file info for insert to database.
-            	    $fileName = $_FILES['imageFile']['name'];
+					$fileName = $_FILES['imageFile']['name'];
 					$data = array('upload_data' => $this->upload->data()); 
 
 			// Thumnail : Resize Image.
@@ -141,9 +141,9 @@ class EventImage extends MY_Controller {
 					$image_upload = array('priority' => 0, 'FK_ICC_Card' => $iccCardId, 'image_URL' => $fileName);
 					$this ->db->insert('event_image',$image_upload); 
 				}			
-            }
-        }
-        redirect(site_url('eventImage/manipulate'));
+			}
+		}
+		redirect(site_url('eventImage/manipulate'));
 	}
 // End Private function.
 }

@@ -3,7 +3,7 @@ class IccCard extends MY_Controller {
 // Property.
 	private $dataTypeName = "ICC Card";
 	private $inputModeName = [1 => 'เพิ่มข้อมูล', 2 => 'แก้ไข'];
-	private $paginationLimit = 15;
+	private $paginationLimit = 70;
 // End Property.
 
 
