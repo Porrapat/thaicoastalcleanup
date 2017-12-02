@@ -91,7 +91,7 @@ if(isset($extendedCss)) echo $extendedCss;
             <span class="loader white"></span>
         </span>
 
-    <section class="body">
+    <section class="body" id="sectionBody">
 
 
         <header class="header">

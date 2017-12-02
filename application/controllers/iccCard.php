@@ -205,7 +205,7 @@ class IccCard extends MY_Controller {
 		$config['full_tag_close'] ="</ul>";
 		$config['num_tag_open'] = "<li>";
 		$config['num_tag_close'] = "</li>";
-		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='/#'>";
 		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
 		$config['next_tag_open'] = "<li>";
 		$config['next_tagl_close'] = "</li>";
@@ -223,7 +223,7 @@ class IccCard extends MY_Controller {
 		//$choice = $config["total_rows"] / $config["per_page"];
 		//$config["num_links"] = round($choice);
 
-		$config['setCurPage'] = $pageCode;
+		$config['setCurPage'] = $pageCode;									// My modify code at system library.
 		$this->pagination->initialize($config);
 
 		$startRecord = ($pageCode) ? $pageCode : 0;

@@ -62,6 +62,20 @@ $(document).on("click", "a#eventImage", function(e){
 });
 // -------------------------------------------------------------------------------------------- Search.
 $('button#search').on('click', function(e) { filterThenRenderIccCardList(0); });
+// -------------------------------------------------------------------------------------------- Pagination.
+$(document).on("click", '.pagination a', function (e) {
+    e.preventDefault();
+
+    let link = $(this).get(0).href; // get the link from the DOM object
+    let segments = link.split('/');
+    let pageCode = segments[segments.length - 1];
+    alert(pageCode);
+    if( (pageCode !== "#") && ($.isNumeric(pageCode)) ) {
+        filterThenRenderIccCardList(pageCode);
+    } else {
+        document.getElementById('sectionBody').scrollIntoView(true);
+    }
+});
 // -------------------------------------------------------------------------------------------- Click command.
 $(document).on('click', 'button#approveIccCard', function(e) { confirmApproveIccCardStatus(getConfirmInfo(e)); });
 // -------------------------------------------------------------------------------------------- End Click command.
@@ -116,15 +130,6 @@ function filterThenRenderIccCardList(pageCode) {
         }
     });
 }
-// ____________________________________________________________________________________________ Pagination.
-$(document).on("click", '.pagination a', function (e) {
-    e.preventDefault();
-
-    let link = $(this).get(0).href; // get the link from the DOM object
-    let segments = link.split('/');
-    let pageCode = segments[segments.length - 1];
-    filterThenRenderIccCardList(pageCode);
-});
 // -------------------------------------------------------------------------------------------- End AJAX.
 
 // -------------------------------------------------------------------------------------------- Click command.

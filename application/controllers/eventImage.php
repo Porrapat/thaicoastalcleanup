@@ -137,10 +137,10 @@ class EventImage extends MY_Controller {
 
 	private function RenderPage() {
 		// Prepare Template.
-		$this->extendedCss = 'admin/eventImage/manipulate/extendedCss_v';
-		$this->body = 'admin/eventImage/manipulate/body_v';
-		$this->footer = 'admin/eventImage/manipulate/footer_v';
-		$this->extendedJs = 'admin/eventImage/manipulate/extendedJs_v';
+		$this->extendedCss = 'admin/eventImage/extendedCss_v';
+		$this->body = 'admin/eventImage/body_v';
+		$this->footer = 'admin/eventImage/footer_v';
+		$this->extendedJs = 'admin/eventImage/extendedJs_v';
 		$this->renderWithTemplate();
 	}
 // End Private function.

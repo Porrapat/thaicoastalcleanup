@@ -1,3 +1,7 @@
+<section role="main" class="content-body">
+<div class="row">
+    <div class="row">
+        <div class="col-xs-12">
 
 <div class="container">
 	<div class="row">
@@ -26,12 +30,12 @@
 							<table width="50%" cellpadding="1" cellspacing="0">
 								<?php foreach($dsImage as $image) { ?>
 								<tr>
-<!--
+	<!--
 									<td>
 										<img class="img" 
 										src="<?=base_url().'uploads/Event_Images/'.$image['Image_URL'] ?>">
 									</td>
--->
+	-->
 									<td>
 										<img class="img" 
 										src="<?=base_url().'uploads/Event_Images/thumbs/'.$image['Image_URL'] ?>">
@@ -48,4 +52,7 @@
 	</div>
 </div>
 
-<br><br><br>
+			</div>
+    </div>
+</div>
+</section>
