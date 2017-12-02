@@ -205,7 +205,7 @@ class IccCard extends MY_Controller {
 		$config['full_tag_close'] ="</ul>";
 		$config['num_tag_open'] = "<li>";
 		$config['num_tag_close'] = "</li>";
-		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='/#'>";
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
 		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
 		$config['next_tag_open'] = "<li>";
 		$config['next_tagl_close'] = "</li>";
@@ -216,7 +216,8 @@ class IccCard extends MY_Controller {
 		$config['last_tag_open'] = "<li>";
 		$config['last_tagl_close'] = "</li>";
 		//$config['use_page_numbers'] = TRUE;
-		$config["base_url"] = "#";
+		$config["base_url"] = "";
+		$config["first_url"] = "#/0";
 		$config["total_rows"] = $this->iccCard_m->GetIccCardRecordCount($rFilter);
 		$config["per_page"] = $this->paginationLimit;
 		$config["uri_segment"] = 3;

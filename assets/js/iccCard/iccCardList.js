@@ -69,7 +69,7 @@ $(document).on("click", '.pagination a', function (e) {
     let link = $(this).get(0).href; // get the link from the DOM object
     let segments = link.split('/');
     let pageCode = segments[segments.length - 1];
-    alert(pageCode);
+    alert(pageCode + "\n" + link);
     if( (pageCode !== "#") && ($.isNumeric(pageCode)) ) {
         filterThenRenderIccCardList(pageCode);
     } else {
