@@ -21,7 +21,7 @@ class EventImage extends MY_Controller {
 			//$iccCardId = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
 			// Prepare data of view.
-			$this->data = $this->GetDataForRenderManipulatePage($iccCardId);
+			$this->data = $this->GetDataForRenderMainPage($iccCardId);
 	
 			// Prepare Template.
 			$this->RenderPage();
@@ -38,19 +38,23 @@ class EventImage extends MY_Controller {
 			$iccCardId = $this->input->post('iccCardId');
 
 			$this->uploadImageAndCreateThumpnail($iccCardId);
-
-			// Prepare data of view.
-			if($this->data = $this->GetDataForRenderManipulatePage($iccCardId)) {
-				// Prepare Template.
-				$this->RenderPage();
-			}
+			redirect(base_url('eventImage/dpm/' . $iccCardId));
 		}
+	}
+
+	public function dpm() {
+		if(!($this->is_logged())) {exit(0);}
+
+		$data['iccCardId'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+		$this->load->view("backend/eventImage/dummyPostMethod_v", $data);
 	}
 // End Routing function.
 
 
+
 // Private function.
-	private function GetDataForRenderManipulatePage($iccCardId=null) {
+	private function GetDataForRenderMainPage($iccCardId=null) {
 		// Get Event image Form Post Method.
 		$this->load->model("eventImage_m");
 
@@ -137,10 +141,10 @@ class EventImage extends MY_Controller {
 
 	private function RenderPage() {
 		// Prepare Template.
-		$this->extendedCss = 'admin/eventImage/extendedCss_v';
-		$this->body = 'admin/eventImage/body_v';
-		$this->footer = 'admin/eventImage/footer_v';
-		$this->extendedJs = 'admin/eventImage/extendedJs_v';
+		$this->extendedCss = 'backend/eventImage/extendedCss_v';
+		$this->body = 'backend/eventImage/body_v';
+		$this->footer = 'backend/eventImage/footer_v';
+		$this->extendedJs = 'backend/eventImage/extendedJs_v';
 		$this->renderWithTemplate();
 	}
 // End Private function.

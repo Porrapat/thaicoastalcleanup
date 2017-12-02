@@ -52,13 +52,14 @@ $(document).on("click", "a#editIccCard", function(e){
     $('form#formChoose').submit();
 });
 $(document).on("click", "a#eventImage", function(e){
+    let baseUrl = window.location.origin + "/" + window.location.pathname.split('/')[1] + "/";
     e.preventDefault();
 
     let tr = $(e.target).closest('tr');
     let iccCardId = tr.find('td input#iccCardId').val();
     $('input[name=iccCardId]').val(iccCardId);
     
-    $('form#formChoose').attr('action', "eventImage").submit();
+    $('form#formChoose').attr('action', baseUrl + "eventImage").submit();
 });
 // -------------------------------------------------------------------------------------------- Search.
 $('button#search').on('click', function(e) { filterThenRenderIccCardList(0); });

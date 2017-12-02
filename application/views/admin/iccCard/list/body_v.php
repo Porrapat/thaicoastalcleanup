@@ -174,7 +174,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php //$this->load->view("admin/iccCard/list/bodyTableBody_v"); ?>
                         </tbody>
                     </table>
                 <!-- End Tabel view display -->
