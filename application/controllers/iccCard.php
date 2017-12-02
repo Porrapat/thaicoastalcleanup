@@ -1,8 +1,6 @@
 <?php
 class IccCard extends MY_Controller {
 // Property.
-	//private $dataTypeName = "ICC Card";
-	//private $inputModeName = [1 => 'เพิ่มข้อมูล', 2 => 'แก้ไข'];
 	private $paginationLimit = 15;
 // End Property.
 
@@ -33,8 +31,6 @@ class IccCard extends MY_Controller {
 
 		// Prepare data of view.
 		$this->data = $this->GetDataForViewDisplay();
-		// Caption.
-		//$this->data['dataTypeName'] = $this->dataTypeName;
 		
 		// Prepare Template.
 		$this->extendedCss = 'admin/iccCard/list/extendedCss_v';
@@ -224,15 +220,14 @@ class IccCard extends MY_Controller {
 		$config["total_rows"] = $this->iccCard_m->GetIccCardRecordCount($rFilter);
 		$config["per_page"] = $this->paginationLimit;
 		$config["uri_segment"] = 3;
-		$choice = $config["total_rows"] / $config["per_page"];
-		$config["num_links"] = round($choice);
+		//$choice = $config["total_rows"] / $config["per_page"];
+		//$config["num_links"] = round($choice);
 
 		$config['setCurPage'] = $pageCode;
 		$this->pagination->initialize($config);
 
-		//$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		//$page = ($pageCode - 1) * $config["per_page"];
-		$data["dsIccCardList"] = $this->iccCard_m->GetIccCardList($rFilter, $config["per_page"], $pageCode);
+		$startRecord = ($pageCode) ? $pageCode : 0;
+		$data["dsIccCardList"] = $this->iccCard_m->GetIccCardList($rFilter, $config["per_page"], $startRecord);
 		$data["paginationLinks"] = $this->pagination->create_links();
 
 		return $data;

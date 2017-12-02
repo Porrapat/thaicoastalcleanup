@@ -60,7 +60,7 @@ class IccCard_m extends CI_Model {
 				. ", c." . $this->iccCard_d->colProjectName
 				
 				. $sqlLimit;
-//var_dump($sqlStr);exit(0);
+
 		// Execute sql.
 		$this->load->model('db_m');
 		$result = $this->db_m->GetRow($sqlStr);
@@ -823,26 +823,26 @@ class IccCard_m extends CI_Model {
     	return $result;
 	}
 	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Project Name (ICC_Card)Table
-    private function GetDsProjectName($id=null) {
+  private function GetDsProjectName($id=null) {
 		$this->load->model("dataclass/iccCard_d");
 		$this->load->model("db_m");
 
 		$this->db_m->tableName = $this->iccCard_d->tableName;
 		$this->db_m->sequenceColumn = $this->iccCard_d->colProjectName;
-		$strSelect = $this->iccCard_d->colProjectName;
+		$strSelect = $this->iccCard_d->colId . ", " . $this->iccCard_d->colProjectName;
 		$rWhere = array($this->iccCard_d->colActive => "1");
 		$dataSet = $this->db_m->GetRowById($id, $rWhere, $strSelect);
     
     	return $dataSet;
     }
-    private function GetDsProjectNameByProvinceCode($fkProvinceCode=null) {
+  private function GetDsProjectNameByProvinceCode($fkProvinceCode=null) {
 		$this->load->model("dataclass/iccCard_d");
 		$this->load->model("db_m");
 
 		$this->db_m->tableName = $this->iccCard_d->tableName;
 		$this->db_m->sequenceColumn = $this->iccCard_d->colProjectName;
 		$this->db_m->colId = $this->iccCard_d->colFkProvinceCode;
-		$strSelect = $this->iccCard_d->colProjectName;
+		$strSelect = $this->iccCard_d->colId . ", " . $this->iccCard_d->colProjectName;
 		$rWhere = array($this->iccCard_d->colActive => "1");
 		$fkProvinceCode = ( ($fkProvinceCode < 1) ? null : $fkProvinceCode);
 		
@@ -855,7 +855,8 @@ class IccCard_m extends CI_Model {
 		$this->load->model("db_m");
 
 		// Create sql string.
-		$sqlStr = "SELECT DISTINCT c." . $this->iccCard_d->colProjectName
+		$sqlStr = "SELECT DISTINCT c." . $this->iccCard_d->colId
+				. ", c." . $this->iccCard_d->colProjectName
 				. " FROM " . $this->iccCard_d->tableName . " AS c"
 				. $sqlWhere
 				. " ORDER BY c." . $this->iccCard_d->colProjectName;
@@ -969,8 +970,8 @@ class IccCard_m extends CI_Model {
 			$sqlWhere .= (($rFilter['amphurCode'] !== NULL) && ($rFilter['amphurCode'] > 0)
 					? " AND c." . $this->iccCard_d->colFkAmphurCode . "=" . $rFilter['amphurCode']
 					: NULL );
-			$sqlWhere .= (($rFilter['projectName'] !== NULL) && ($rFilter['projectName'] != '0')
-					? " AND c." . $this->iccCard_d->colProjectName . "='" . $rFilter['projectName'] . "'"
+			$sqlWhere .= (($rFilter['iccCardId'] !== NULL) && ($rFilter['iccCardId'] != '0')
+					? " AND c." . $this->iccCard_d->colId . "=" . $rFilter['iccCardId']
 					: NULL );
 			$sqlWhere .= (($rFilter['orgId'] !== NULL) && ($rFilter['orgId'] > 0)
 					? " AND c." . $this->iccCard_d->colFkOrg . "=" . $rFilter['orgId']

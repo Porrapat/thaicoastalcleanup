@@ -116,7 +116,7 @@
                                     <option value="0" selected>เลือกทั้งหมด...</option>
                                     <?php
                                     foreach($dsProjectName as $row) {
-                                        echo '<option value="'.$row['Project_Name'].'">'.$row['Project_Name'].'</option>';
+                                        echo '<option value="'.$row['id'].'">'.$row['Project_Name'].'</option>';
                                     }
                                     ?>
                                 </select>

@@ -120,6 +120,6 @@ function setSelectElementOfProjectName(dataSet, $selector) {
     $selector.empty();
     $selector.append('<option value="0">เลือกทั้งหมด</option>');
     for (var i = 0; i < dataSet.length; i++) {
-        $selector.append('<option value="' + dataSet[i].Project_Name + '">' + dataSet[i].Project_Name + '</option>');
+        $selector.append('<option value="' + dataSet[i].id + '">' + dataSet[i].Project_Name + '</option>');
     }
 }

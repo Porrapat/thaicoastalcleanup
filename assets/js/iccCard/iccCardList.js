@@ -79,7 +79,7 @@ function filterThenRenderIccCardList(pageCode) {
     let strDateEnd = picker.endDate.format('YYYY-MM-DD');
     let provinceCode = $('select#provinceCode :selected').val();
     let amphurCode = $('select#amphurCode :selected').val();
-    let projectName = $('select#projectName :selected').val();
+    let iccCardId = $('select#projectName :selected').val();
     let orgId = $('select#orgId :selected').val();
     let garbageTypeId = $('select#garbageTypeId :selected').val();
     let iccCardStatusCode = $('select#iccCardStatusCode :selected').val();
@@ -91,7 +91,7 @@ function filterThenRenderIccCardList(pageCode) {
             'strDateEnd'        : strDateEnd,
             'provinceCode'      : provinceCode,
             'amphurCode'        : amphurCode,
-            'projectName'       : projectName,
+            'iccCardId'         : iccCardId,
             'orgId'             : orgId,
             'garbageTypeId'     : garbageTypeId,
             'iccCardStatusCode' : iccCardStatusCode
