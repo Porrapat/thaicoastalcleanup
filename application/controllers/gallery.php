@@ -1,51 +1,127 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class gallery extends MY_Controller {
+class Gallery extends MY_Controller {
 
+// Constructor.
 	function __construct() {
 		parent::__construct();
-		$this->isBackend = true;
-		$this->load->helper("url");
-		$this->load->library('form_validation');
-		
+	}
+// End Constructor.
+
+
+
+// Method start.
+	// ---------------------------------------------------------------------------------------- For display
+	function index() {
+		$iccCardId = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+		// Prepare data of view.
+		$this->data = $this->GetDataForRenderMainPage($iccCardId);
+
+		// Prepare Template.
+		$this->RenderPage();
+	}
+// End Method start.
+
+
+// Routing function.
+// End Routing function.
+
+
+
+// Private function.
+	private function GetDataForRenderMainPage($iccCardId=null) {
+		// Get Event image Form Post Method.
+		$this->load->model("eventImage_m");
+
+		$data['dsImage'] = $this->eventImage_m->GetDsEventImage(null, $iccCardId);
+
+		$dsIccCard = $this->eventImage_m->GetDsIccCard($iccCardId);
+		$data['iccCardId'] = $iccCardId;
+		$data['dsIccCard'] = $dsIccCard;
+
+		return $data;
 	}
 
-	public function index() {
+	private function uploadImageAndCreateThumpnail($iccCardId=null) {
+		$result = FALSE;
+		$this->load->model("eventImage_m");
 
-		$this->load->library("pagination");
-		$config = array();
-        $config['full_tag_open'] = "<ul class='pagination'>";
-		$config['full_tag_close'] ="</ul>";
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
-		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
-		$config['next_tag_open'] = "<li>";
-		$config['next_tagl_close'] = "</li>";
-		$config['prev_tag_open'] = "<li>";
-		$config['prev_tagl_close'] = "</li>";
-		$config['first_tag_open'] = "<li>";
-		$config['first_tagl_close'] = "</li>";
-		$config['last_tag_open'] = "<li>";
-		$config['last_tagl_close'] = "</li>";
-		$config["base_url"] = base_url('gallery/index');
-		$config["per_page"] = 15;
-		$config["total_rows"] = $this->db->count_all('icc_card');
-		$this->pagination->initialize($config);
+		// Upload multiply.
+		if(isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] != '4') {
+			$files = $_FILES;
+			$count = count($_FILES['imageFile']['name']); // count element 
+			for($i=0; $i<$count; $i++) {
+			// Change to new file name with existing extension file.	microtime(true)
+				$newFilename = "project-" . $iccCardId . "_" . date("ymd-Hisu") . "."
+					. pathinfo(parse_url($files['imageFile']['name'][$i])['path'], PATHINFO_EXTENSION);
+				$files['imageFile']['name'][$i] = $newFilename;
+			// Initial file obj.
+				$_FILES['imageFile']['name']= $files['imageFile']['name'][$i];
+				$_FILES['imageFile']['type']= $files['imageFile']['type'][$i];
+				$_FILES['imageFile']['tmp_name']= $files['imageFile']['tmp_name'][$i];
+				$_FILES['imageFile']['error']= $files['imageFile']['error'][$i];
+				$_FILES['imageFile']['size']= $files['imageFile']['size'][$i];
+			// Initial path file&folder.
+				$config['upload_path'] = './uploads/Event_Images/';
+				$target_path = './uploads/Event_Images/thumbs/';
+			// Config file type, size save method.
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['max_size'] = '20000'; //limit 1 mb
+				$config['remove_spaces'] = true;
+				$config['overwrite'] = false;
+				$config['max_width'] = '2560';// image max width 
+				$config['max_height'] = '1440';
+			// Push Config to library.
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+			// Upload file.
+				$resultUpload = $this->upload->do_upload('imageFile');
+			// Validate upload file.
+				if(!$resultUpload) {
+				// Can't upload file : send UI for inform user.
+					$error = array('upload_error' => $this->upload->display_errors());
+					$this->session->set_flashdata('error',  $error['upload_error']); 
+					echo $files['imageFile']['name'][$i].' '.$error['upload_error']; exit;
+				} else {
+				// Success upload file : Prepare upload file info for insert to database.
+					$fileName = $this->upload->file_name;
 
+					$data = array('upload_data' => $this->upload->data()); 
+			// Thumnail : Resize Image.
+				// Thumpnail : Initial path file&folder.
+					$path = $data['upload_data']['full_path'];
+					$q['name'] = $data['upload_data']['file_name'];
+				// Thumpnail : Config file type, size save method.
+					$configi['image_library'] = 'gd2';
+					$configi['source_image'] = $path;
+					$configi['new_image'] = $target_path;
+					$configi['maintain_ratio'] = TRUE;
+					$configi['width'] = 150; // new size
+					$configi['height'] = 150;
+				// Thumpnail : Push Config to library.
+					$this->load->library('image_lib');
+					$this->image_lib->initialize($configi);
+				// Thumpnail : Resize file.
+					$this->image_lib->resize();
 
-		$data['rs']=$this->db->select('*')->from('icc_card')->limit($config["per_page"], $this->uri->segment(3))->get()->result_array();
-    	//$sql="select * from icc_card";
-        //$rs=$this->db->query($sql);
+				// Save info to.
+					$image_upload = array('priority' => 0, 'FK_ICC_Card' => $iccCardId, 'image_URL' => $fileName);
+					$resutl = $this->eventImage_m->AddNewImage($image_upload);
+				}
+			}
+		}
 
-       
-
-        $this->data = $data;
-
-		$this->body = 'admin/gallery/index';
-		$this->renderWithTemplate();	
+		return $result;
 	}
 
-
-
+	private function RenderPage() {
+		// Prepare Template.
+		$this->extendedCss = 'backend/eventImage/extendedCss_v';
+		$this->body = 'backend/eventImage/body_v';
+		$this->footer = 'backend/eventImage/footer_v';
+		$this->extendedJs = 'backend/eventImage/extendedJs_v';
+		$this->renderWithTemplate();
 	}
+// End Private function.
+}

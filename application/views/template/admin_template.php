@@ -220,14 +220,14 @@ html.no-overflowscrolling .nano > .nano-pane > .nano-slider {
                                         </a>
                                     </li>
                                     
-                                    
+<!--
                                     <li <?php if($this->uri->segment(1)=="gallery"){ echo 'class=nav-expanded'; }?> >
                                         <a href="<?php echo base_url('gallery'); ?>"  >
                                             <i class="fa fa-file-image-o" aria-hidden="true"></i>
                                             <span>ภาพกิจกรรมโครงการ </span>
                                         </a>
                                     </li>
-                                    
+-->
                                     <li <?php if($this->uri=="masterdata/view/1"){ echo 'class=nav-expanded'; }?> >
                                         <a href="<?php echo base_url('masterdata/view/1'); ?>"  >
                                             <i class="fa fa-file-image-o" aria-hidden="true"></i>
