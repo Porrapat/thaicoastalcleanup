@@ -28,13 +28,40 @@
 
 										<!--Uploaded Image -->
 											<?php if(isset($dsImage)) { ?>
+<!--
+												<div id="image-gallery-demo" class="content" style="display: block;">
+													<ul class="gallery clearfix">
+														<?php $i=1; ?>
+														<?php foreach($dsImage as $image) { ?>
+															<li>
+																<a title="You can add caption to pictures." 
+																href="<?=base_url().'uploads/Event_Images/'.$image['Image_URL'] ?>" 
+																rel="prettyPhoto[pp_gal]">
+																	<img src="<?=base_url().'uploads/Event_Images/thumbs/'.$image['Image_URL'] ?>" 
+																	alt="Red round shape" width="50" height="50">
+																</a>
+															</li>
+															<?php if($i > 4) { ?>
+																</tr>
+																<tr>
+																<?php $i = 0; ?>
+															<?php } ?>
+															<?php $i++; ?>
+														<?php }?>
+													</ul>
+												</div>
+-->
 												<table width="100%" cellpadding="1" cellspacing="0">
 													<tr>
 														<?php $i=1; ?>
 														<?php foreach($dsImage as $image) { ?>
 															<td>
-																<img class="img" 
-																src="<?=base_url().'uploads/Event_Images/thumbs/'.$image['Image_URL'] ?>">
+																<a title="You can add caption to pictures." 
+																href="<?=base_url().'uploads/Event_Images/'.$image['Image_URL'] ?>" 
+																rel="prettyPhoto[pp_gal]">
+																	<img src="<?=base_url().'uploads/Event_Images/thumbs/'.$image['Image_URL'] ?>" 
+																	alt="Red round shape">
+																</a>
 															</td>
 															<?php if($i > 4) { ?>
 																</tr>
@@ -45,6 +72,7 @@
 														<?php }?>
 													</tr>
 												</table>
+
 											<?php } ?>
 										<!-- End Uploaded Image -->
 										</div>
