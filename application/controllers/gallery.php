@@ -81,8 +81,9 @@ class Gallery extends MY_Controller {
 		$rDsData = $this->iccCard_m->GetDataForComboBoxListView();
 
 		$result = $this->setPagination();
-		$rDsData["dsView"] = $result["dsIccCardList"];
+		$rDsData["dsIccCardList"] = $result["dsIccCardList"];
 		$rDsData["paginationLinks"] = $result["paginationLinks"];
+		$dataRender["numRecordStart"] = 0;
 
 		return $rDsData;
 	}

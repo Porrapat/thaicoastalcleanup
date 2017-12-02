@@ -1,9 +1,9 @@
 <!-- Table body -->
 <?php 
-    $i = 1;
-    foreach($dsView as $row) {
+    $numRecordStart++;
+    foreach($dsIccCardList as $row) {
         echo ('<tr>');
-        echo ('<td class="text-center"><?php echo($i++); ?></td>');
+        echo ('<td class="text-center">' . $numRecordStart++ . '</td>');
         $lastColumn = count($row) - 1;
         $j = 0;
         foreach($row as $value) {
