@@ -73,7 +73,8 @@ class IccCard extends MY_Controller {
 			$this->load->model('iccCard_m');
 			$dataRender = $this->iccCard_m->GetDataForComboBoxAjaxListView();
 			$dataPagination = $this->setPagination($rDataFilter, $pageCode);
-			$dataRender["dsView"] = $dataPagination["dsIccCardList"];
+			$dataRender["dsIccCardList"] = $dataPagination["dsIccCardList"];
+			$dataRender["numRecordStart"] = $pageCode;
 
 			$dsData["htmlTableBody"] = $this->load->view("backend/iccCard/list/bodyTableBody_v", $dataRender, TRUE);
 			$dsData["paginationLinks"] = $dataPagination["paginationLinks"];
@@ -242,8 +243,9 @@ class IccCard extends MY_Controller {
 		$rDsData = $this->iccCard_m->GetDataForComboBoxListView();
 
 		$result = $this->setPagination();
-		$rDsData["dsView"] = $result["dsIccCardList"];
+		$rDsData["dsIccCardList"] = $result["dsIccCardList"];
 		$rDsData["paginationLinks"] = $result["paginationLinks"];
+		$dataRender["numRecordStart"] = 0;
 
 		return $rDsData;
 	}

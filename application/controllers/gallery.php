@@ -14,12 +14,16 @@ class Gallery extends MY_Controller {
 	// ---------------------------------------------------------------------------------------- For display
 	function index() {
 		$iccCardId = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		if(!($this->is_logged())) {exit(0);}
 
 		// Prepare data of view.
-		$this->data = $this->GetDataForRenderMainPage($iccCardId);
-
+		$this->data = $this->GetDataForListView();
+		
 		// Prepare Template.
-		$this->RenderPage();
+		$this->extendedCss = 'frontend/eventImageGallery/list/extendedCss_v';
+		$this->body = 'frontend/eventImageGallery/list/body_v';
+		$this->extendedJs = 'frontend/eventImageGallery/list/extendedJs_v';
+		$this->renderWithTemplate();
 	}
 // End Method start.
 
@@ -30,7 +34,60 @@ class Gallery extends MY_Controller {
 
 
 // Private function.
-	private function GetDataForRenderMainPage($iccCardId=null) {
+	// ---------------------------------------------------------------------------------------- Set pagination.
+	private function setPagination($rFilter=null, $pageCode=0) {
+		$this->load->library("pagination");
+		$this->load->model('iccCard_m');
+
+		$config = array();
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = "<li>";
+		$config['num_tag_close'] = "</li>";
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
+		//$config['use_page_numbers'] = TRUE;
+		$config["base_url"] = "";
+		$config["first_url"] = "#/0";
+		$config["total_rows"] = $this->iccCard_m->GetIccCardRecordCount($rFilter);
+		$config["per_page"] = $this->paginationLimit;
+		$config["uri_segment"] = 3;
+		//$choice = $config["total_rows"] / $config["per_page"];
+		//$config["num_links"] = round($choice);
+
+		$config['setCurPage'] = $pageCode;									// My modify code at system library.
+		$this->pagination->initialize($config);
+
+		$startRecord = ($pageCode) ? $pageCode : 0;
+		$data["dsIccCardList"] = $this->iccCard_m->GetIccCardList($rFilter, $config["per_page"], $startRecord);
+		$data["paginationLinks"] = $this->pagination->create_links();
+
+		return $data;
+	}
+
+
+  // ---------------------------------------------------------------------------------------- Initial view mode
+	private function GetDataForListView() {
+		$this->load->model("iccCard_m");
+		
+		$rDsData = $this->iccCard_m->GetDataForComboBoxListView();
+
+		$result = $this->setPagination();
+		$rDsData["dsView"] = $result["dsIccCardList"];
+		$rDsData["paginationLinks"] = $result["paginationLinks"];
+
+		return $rDsData;
+	}
+
+	private function GetDataForDetailView($iccCardId=null) {
 		// Get Event image Form Post Method.
 		$this->load->model("eventImage_m");
 
@@ -41,87 +98,6 @@ class Gallery extends MY_Controller {
 		$data['dsIccCard'] = $dsIccCard;
 
 		return $data;
-	}
-
-	private function uploadImageAndCreateThumpnail($iccCardId=null) {
-		$result = FALSE;
-		$this->load->model("eventImage_m");
-
-		// Upload multiply.
-		if(isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] != '4') {
-			$files = $_FILES;
-			$count = count($_FILES['imageFile']['name']); // count element 
-			for($i=0; $i<$count; $i++) {
-			// Change to new file name with existing extension file.	microtime(true)
-				$newFilename = "project-" . $iccCardId . "_" . date("ymd-Hisu") . "."
-					. pathinfo(parse_url($files['imageFile']['name'][$i])['path'], PATHINFO_EXTENSION);
-				$files['imageFile']['name'][$i] = $newFilename;
-			// Initial file obj.
-				$_FILES['imageFile']['name']= $files['imageFile']['name'][$i];
-				$_FILES['imageFile']['type']= $files['imageFile']['type'][$i];
-				$_FILES['imageFile']['tmp_name']= $files['imageFile']['tmp_name'][$i];
-				$_FILES['imageFile']['error']= $files['imageFile']['error'][$i];
-				$_FILES['imageFile']['size']= $files['imageFile']['size'][$i];
-			// Initial path file&folder.
-				$config['upload_path'] = './uploads/Event_Images/';
-				$target_path = './uploads/Event_Images/thumbs/';
-			// Config file type, size save method.
-				$config['allowed_types'] = 'gif|jpg|png|jpeg';
-				$config['max_size'] = '20000'; //limit 1 mb
-				$config['remove_spaces'] = true;
-				$config['overwrite'] = false;
-				$config['max_width'] = '2560';// image max width 
-				$config['max_height'] = '1440';
-			// Push Config to library.
-				$this->load->library('upload', $config);
-				$this->upload->initialize($config);
-			// Upload file.
-				$resultUpload = $this->upload->do_upload('imageFile');
-			// Validate upload file.
-				if(!$resultUpload) {
-				// Can't upload file : send UI for inform user.
-					$error = array('upload_error' => $this->upload->display_errors());
-					$this->session->set_flashdata('error',  $error['upload_error']); 
-					echo $files['imageFile']['name'][$i].' '.$error['upload_error']; exit;
-				} else {
-				// Success upload file : Prepare upload file info for insert to database.
-					$fileName = $this->upload->file_name;
-
-					$data = array('upload_data' => $this->upload->data()); 
-			// Thumnail : Resize Image.
-				// Thumpnail : Initial path file&folder.
-					$path = $data['upload_data']['full_path'];
-					$q['name'] = $data['upload_data']['file_name'];
-				// Thumpnail : Config file type, size save method.
-					$configi['image_library'] = 'gd2';
-					$configi['source_image'] = $path;
-					$configi['new_image'] = $target_path;
-					$configi['maintain_ratio'] = TRUE;
-					$configi['width'] = 150; // new size
-					$configi['height'] = 150;
-				// Thumpnail : Push Config to library.
-					$this->load->library('image_lib');
-					$this->image_lib->initialize($configi);
-				// Thumpnail : Resize file.
-					$this->image_lib->resize();
-
-				// Save info to.
-					$image_upload = array('priority' => 0, 'FK_ICC_Card' => $iccCardId, 'image_URL' => $fileName);
-					$resutl = $this->eventImage_m->AddNewImage($image_upload);
-				}
-			}
-		}
-
-		return $result;
-	}
-
-	private function RenderPage() {
-		// Prepare Template.
-		$this->extendedCss = 'backend/eventImage/extendedCss_v';
-		$this->body = 'backend/eventImage/body_v';
-		$this->footer = 'backend/eventImage/footer_v';
-		$this->extendedJs = 'backend/eventImage/extendedJs_v';
-		$this->renderWithTemplate();
 	}
 // End Private function.
 }

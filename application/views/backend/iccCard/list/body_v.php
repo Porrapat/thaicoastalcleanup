@@ -160,9 +160,9 @@
                             <tr>
                                 <th class="text-center" width="40"></th>
                                 <?php 
-                                    if(count($dsView) > 0) {
+                                    if(count($dsIccCardList) > 0) {
                                         $i=0;
-                                        foreach($dsView[0] as $col => $value) {
+                                        foreach($dsIccCardList[0] as $col => $value) {
                                             if($i++ > 0) {
                                                 echo ('<th class="text-center">'. $col .'</th>');
                                             }
