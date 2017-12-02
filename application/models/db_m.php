@@ -2,9 +2,9 @@
 
 class Db_m extends CI_Model {
 // Property.
-    public $tableName = '';
-    public $colId = "id";
-    public $sequenceColumn = "id";
+	public $tableName = '';
+	public $colId = "id";
+	public $sequenceColumn = "id";
 	public $sequenceType = " Asc ";
 	public $sequenceOrder;
 	public $insertId = 0;
@@ -21,13 +21,13 @@ class Db_m extends CI_Model {
 
 // Transaction.
 	public function TransBegin() {
-    	return $this->db->trans_begin();
-    }
+		return $this->db->trans_begin();
+	}
 	public function TransCommit() {
-    	return $this->db->trans_commit();
-    }
+		return $this->db->trans_commit();
+	}
 	public function TransRollback() {
-    	return $this->db->trans_rollback();
+		return $this->db->trans_rollback();
 	}
 	
 	public function TransStart() {
@@ -41,8 +41,8 @@ class Db_m extends CI_Model {
 	}
 
 	public function TransStatus() {
-    	return  ($this->db->trans_status() === FALSE) ? false : true;
-    }
+		return  ($this->db->trans_status() === FALSE) ? false : true;
+	}
 // End Transaction.
 
 
@@ -64,11 +64,11 @@ class Db_m extends CI_Model {
 
 
 // Find.
-    public function Find($rWhere=[]) {
+  public function Find($rWhere=[]) {
 		$result = null;
 
-        $dataSet = $this->db->get_where($this->tableName, $rWhere)->result_array();
-        if(count($dataSet) > 0) {
+		$dataSet = $this->db->get_where($this->tableName, $rWhere)->result_array();
+		if(count($dataSet) > 0) {
 			$this->dataSet = $dataSet;
 			$result = TRUE;
 		} else {
@@ -76,12 +76,12 @@ class Db_m extends CI_Model {
 		}
 
 		return $result;
-    }
+	}
 
-    public function FindById($id=null) {
+  public function FindById($id=null) {
 		$result = $this->Find([$this->colId => $id]);
 		return $result;
-    }
+  }
 // End Find.
 
 
@@ -94,16 +94,16 @@ class Db_m extends CI_Model {
 		$query = $this->db->query($sqlStr);
 		$result = $query->result_array();
 
-    	return $result;
+		return $result;
 	}
 
-    public function GetRowWhere($rWhere=[]) {
+	public function GetRowWhere($rWhere=[]) {
 		$query = $this->db->get_where($this->tableName, $rWhere)->result_array();
 
 		return $query;
-    }
+	}
 
-    public function GetRowById($id=null, $rWhere=null, $strSelect=null) {
+	public function GetRowById($id=null, $rWhere=null, $strSelect=null) {
 		$this->db->select( (($strSelect !== NULL) ? $strSelect : '*') );
 
 		$this->db->from($this->tableName);
@@ -156,10 +156,10 @@ class Db_m extends CI_Model {
 		$query = $this->db->get();
 		
 		return $query->result_array(); 	
-    }
+	}
 
 	// ________________________________________________________ Create ______________________________________________
-    public function CreateRow($data) {
+	public function CreateRow($data) {
 		// Check custom duplication.
 		if($this->rChkDuplication != null) { if( $this->db_m->Find($this->rChkDuplication) ) { return false; } }
 		// End Check custom duplication.
@@ -179,7 +179,7 @@ class Db_m extends CI_Model {
 	}
 
 	// ________________________________________________________ Update ______________________________________________
-    public function UpdateRow($id, $data, $rWhere=null) {
+	public function UpdateRow($id, $data, $rWhere=null) {
 		// Check custom duplication.
 		if($this->rChkDuplication != null) { if( $this->db_m->Find($this->rChkDuplication) ) { return false; } }
 		// End Check custom duplication.
@@ -202,7 +202,7 @@ class Db_m extends CI_Model {
 			return false;
 		}
 	}
-    public function UpdateRowPointColumn($id, $sqlUpdateColumnPoint) {
+	public function UpdateRowPointColumn($id, $sqlUpdateColumnPoint) {
 		// Check custom duplication.
 		if($this->rChkDuplication != null) { if( $this->db_m->Find($this->rChkDuplication) ) { return false; } }
 		// End Check custom duplication.
@@ -233,7 +233,7 @@ class Db_m extends CI_Model {
 
 
 // CRUD with table name.
-    public function CreateRowWithTable($tableName, $data) {
+	public function CreateRowWithTable($tableName, $data) {
 		$this->tableName = $tableName;
 		// Check custom duplication.
 		if($this->rChkDuplication != null) { if( $this->db_m->Find($this->rChkDuplication) ) { return false; } }
@@ -253,7 +253,7 @@ class Db_m extends CI_Model {
 	    return $result;
 	}
 
-    public function UpdateRowWithTable($tableName, $id, $data) {
+	public function UpdateRowWithTable($tableName, $id, $data) {
 		$this->tableName = $tableName;
 		// Check custom duplication.
 		if($this->rChkDuplication != null) { if( $this->db_m->Find($this->rChkDuplication) ) { return false; } }

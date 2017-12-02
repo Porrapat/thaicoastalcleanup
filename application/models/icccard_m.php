@@ -60,12 +60,12 @@ class IccCard_m extends CI_Model {
 				. ", c." . $this->iccCard_d->colProjectName
 				
 				. $sqlLimit;
-
+//var_dump($sqlStr);exit(0);
 		// Execute sql.
 		$this->load->model('db_m');
 		$result = $this->db_m->GetRow($sqlStr);
 
-    	return $result;
+		return $result;
 	}
 // +++ End To list view +++++++++++++++++++++++++++++++++++++++++++++
 
@@ -297,7 +297,7 @@ class IccCard_m extends CI_Model {
 	// +++ To view : AJAX ++++++++++++++++++++++++++++++++++++++++++++++++
 	public function GetDataForComboBoxAjaxListView() {
 		$result["rIccCardStatus"] = $this->GetArrayIccCardStatus();
-		$result['userAuthenLevel'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
+		$result['level'] = ( ($this->session->userdata('level')) ? $this->session->userdata('level') : 0 );
 
 		return $result;
 	}
@@ -743,7 +743,7 @@ class IccCard_m extends CI_Model {
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Place data
 	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Province Table
-    private function GetDsProvince($id=null) {
+	private function GetDsProvince($id=null) {
 		$this->load->model("dataclass/province_d");
 		$this->load->model("db_m");
 
@@ -775,14 +775,14 @@ class IccCard_m extends CI_Model {
     	return $result;
 	}
 	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Amphur Table
-    private function GetDsAmphur($amphurCode=null) {
+	private function GetDsAmphur($amphurCode=null) {
 		$this->load->model("dataclass/amphur_d");
 		$this->load->model("db_m");
 
 		$this->db_m->tableName = $this->amphur_d->tableName;
 		$this->db_m->sequenceColumn = $this->amphur_d->colAmphurName;
 		$this->db_m->colId = $this->amphur_d->colAmphurCode;
-		$strSelect = $this->amphur_d->colAmphurName;
+		$strSelect = $this->amphur_d->colAmphurCode . ", " . $this->amphur_d->colAmphurName;
 		$dataSet = $this->db_m->GetRowById($amphurCode, null, $strSelect);
     
     	return $dataSet;

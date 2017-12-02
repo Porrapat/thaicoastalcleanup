@@ -1,4 +1,3 @@
-<?php $level = 1; ?>
 <?php $this->load->view('admin/dateThaiHelper_v');?>
 
 <section role="main" class="content-body">
@@ -175,51 +174,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php 
-                            $i = 1;
-                            foreach($dsView as $row) {
-                        ?>
-                            <tr>
-                                <td class="text-center"><?php echo($i++); ?></td>
-                        <?php
-                                    $lastColumn = count($row) - 1;
-                                    $j = 0;
-                                    foreach($row as $value) {
-                                        if ($j == $lastColumn) {
-                        ?>
-                                <td class="text-center">
-                        <?php
-                                            echo($rIccCardStatus[$value]);
-                                            if( (($level == 1) || ($level == 2)) && ($value == 1) ) {
-                        ?>
-                                    <div>
-                                        <button id="approveIccCard" type="button" class="btn btn-info">อนุมัติ</button>
-                                    </div>
-                        <?php               } ?>
-                                </td>
-                        <?php           } else if ($j > 0) { ?>
-                                <td class="text-left"><?php echo($value) ?></td>
-                        <?php
-                                        }
-                                        $j++;
-                                    }
-                        ?>
-                                <td class="text-center">
-                                    <a style="float:left; margin-right:8px;" 
-                                    title="แก้ไขแบบฟอร์ม" class="btn btn-primary btn-xs" 
-                                    href="#" role="button" id="editIccCard">
-                                        <i class="fa fa-cog "></i>
-                                    </a>
-                                    <input type="hidden" id="iccCardId" value="<?php echo($row['id']) ?>"/>
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" id="eventImage"
-                                    class="button button-block button-rounded button-large">
-                                        ภาพกิจกรรม
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                            <?php //$this->load->view("admin/iccCard/list/bodyTableBody_v"); ?>
                         </tbody>
                     </table>
                 <!-- End Tabel view display -->

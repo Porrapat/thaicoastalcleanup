@@ -17,7 +17,7 @@ class MasterdataGarbage_m extends CI_Model {
     // ------------------------------------------------------------ Get ------------------------------------------
 	// ___________________________________________________ Zipper Tape Color Code ________________________________
 	// +++ To view +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public function GetDataForViewDisplay($arrId=null, $sqlWhere=null) {
+  public function GetDataForViewDisplay($arrId=null, $sqlWhere=null) {
     	$criteria ='';
     	// Prepare Criteria.
 		$this->load->model('helper_m');
@@ -43,8 +43,8 @@ class MasterdataGarbage_m extends CI_Model {
 		$this->load->model('db_m');
 		$result = $this->db_m->GetRow($sqlStr);
 
-    	return $result;
-    }
+    return $result;
+  }
 
 	// +++ To input ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	public function GetDataForInputDisplay($id=null) {
@@ -77,7 +77,7 @@ class MasterdataGarbage_m extends CI_Model {
 
 
     // ----------------------------------------------------------- Save ------------------------------------------
-    public function Save($id=null, $data) {
+  public function Save($id=null, $data) {
 		$this->load->model('db_m');
 		$this->db_m->tableName = $this->oDetail->tableName;
 		// Check custom duplication.

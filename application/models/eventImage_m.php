@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class EventImage_m extends CI_Model {
-    // Constructor.
+	// Constructor.
 	public function __construct() {
-        parent::__construct();
-    }
+		parent::__construct();
+	}
 
 
 // ******************************************************************************************** Method
@@ -80,4 +80,16 @@ class EventImage_m extends CI_Model {
 	}
 	// ---------------------------------------------------------------------------------------- End Get For Combobox
 // ******************************************************************************************** End Method
+
+
+// -------------------------------------------------------------------------------------------- Save
+public function AddNewImage($data) {
+	$this->load->model('db_m');
+	$this->load->model('dataclass/eventImage_d');
+	$this->db_m->tableName = $this->eventImage_d->tableName;
+
+	$result = $this->db_m->CreateRow($data);
+
+	return $result;
+	}
 }

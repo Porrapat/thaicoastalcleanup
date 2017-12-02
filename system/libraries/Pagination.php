@@ -26,6 +26,7 @@
  * @link		http://codeigniter.com/user_guide/libraries/pagination.html
  */
 class CI_Pagination {
+	var $setCurPage   = -1;	// Koravit
 
 	var $base_url			= ''; // The page we are linking to
 	var $prefix				= ''; // A custom prefix added to the path.
@@ -182,7 +183,13 @@ class CI_Pagination {
 			$this->cur_page = $base_page;
 		}
 
-		// Is the page number beyond the result range?
+///////////////////////////////////////////////////////////////////////////// Koravit.
+	if($this->setCurPage >= 0) {
+		$this->cur_page = $this->setCurPage;
+	}
+///////////////////////////////////////////////////////////////////////////// Koravit.
+
+// Is the page number beyond the result range?
 		// If so we show the last page
 		if ($this->use_page_numbers)
 		{

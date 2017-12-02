@@ -1,13 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class EventImage extends MY_Controller {
-// Property.
-	private $dataTypeName = "ภาพกิจกรรม";
-	private $inputModeName = [1 => 'เพิ่มข้อมูล', 2 => 'แก้ไข'];
-// End property.
-
-
-
 
 // Constructor.
 	function __construct() {
@@ -19,59 +12,50 @@ class EventImage extends MY_Controller {
 
 
 // Method start.
+	// ---------------------------------------------------------------------------------------- For display
 	function index() {
-	}	
-// End Method start.
-
-
-
-
-// Routing function.
-    // ---------------------------------------------------------------------------------------- For display
-	public function manipulate() {
 		if(!($this->is_logged())) {exit(0);}
 
-//		if ($this->input->server('REQUEST_METHOD') === 'POST'){
+		if ($this->input->server('REQUEST_METHOD') === 'POST') {
 			$iccCardId = $this->input->post('iccCardId');
+			//$iccCardId = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
 			// Prepare data of view.
 			$this->data = $this->GetDataForRenderManipulatePage($iccCardId);
 	
-			// Breadcrumb.
-			$this->routingCode = 4.1;
-			// Caption.
-			$this->data['dataTypeName'] = $this->dataTypeName;
-
 			// Prepare Template.
-			$this->extendedCss = 'admin/eventImage/manipulate/extendedCss_v';
-			$this->body = 'admin/eventImage/manipulate/body_v';
-			$this->footer = 'admin/eventImage/manipulate/footer_v';
-			$this->extendedJs = 'admin/eventImage/manipulate/extendedJs_v';
-			$this->renderWithTemplate();
-//		}
-	}
-	// ---------------------------------------------------------------------------------------- Upload Image.
+			$this->RenderPage();
+		}
+	}	
+// End Method start.
+
+
+// Routing function.
 	public function uploadImage() {
+		if(!($this->is_logged())) {exit(0);}
+		
 		if ($this->input->server('REQUEST_METHOD') === 'POST'){
 			$iccCardId = $this->input->post('iccCardId');
 
 			$this->uploadImageAndCreateThumpnail($iccCardId);
+
+			// Prepare data of view.
+			if($this->data = $this->GetDataForRenderManipulatePage($iccCardId)) {
+				// Prepare Template.
+				$this->RenderPage();
+			}
 		}
 	}
-	// ---------------------------------------------------------------------------------------- End Upload Image.
 // End Routing function.
-
-
-
-// AJAX function.
-// End AJAX function.
 
 
 // Private function.
 	private function GetDataForRenderManipulatePage($iccCardId=null) {
 		// Get Event image Form Post Method.
 		$this->load->model("eventImage_m");
+
 		$data['dsImage'] = $this->eventImage_m->GetDsEventImage(null, $iccCardId);
+
 		$dsIccCard = $this->eventImage_m->GetDsIccCard($iccCardId);
 		$data['iccCardId'] = $iccCardId;
 		$data['dsIccCard'] = $dsIccCard;
@@ -80,11 +64,18 @@ class EventImage extends MY_Controller {
 	}
 
 	private function uploadImageAndCreateThumpnail($iccCardId=null) {
+		$result = FALSE;
+		$this->load->model("eventImage_m");
+
 		// Upload multiply.
 		if(isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] != '4') {
 			$files = $_FILES;
 			$count = count($_FILES['imageFile']['name']); // count element 
 			for($i=0; $i<$count; $i++) {
+			// Change to new file name with existing extension file.	microtime(true)
+				$newFilename = "project-" . $iccCardId . "_" . date("ymd-Hisu") . "."
+					. pathinfo(parse_url($files['imageFile']['name'][$i])['path'], PATHINFO_EXTENSION);
+				$files['imageFile']['name'][$i] = $newFilename;
 			// Initial file obj.
 				$_FILES['imageFile']['name']= $files['imageFile']['name'][$i];
 				$_FILES['imageFile']['type']= $files['imageFile']['type'][$i];
@@ -94,8 +85,6 @@ class EventImage extends MY_Controller {
 			// Initial path file&folder.
 				$config['upload_path'] = './uploads/Event_Images/';
 				$target_path = './uploads/Event_Images/thumbs/';
-				$newFileName = "project_" . $iccCardId . "-" . date('ymdHis');
-				$config['file_name'] = $newFileName;
 			// Config file type, size save method.
 				$config['allowed_types'] = 'gif|jpg|png|jpeg';
 				$config['max_size'] = '20000'; //limit 1 mb
@@ -115,38 +104,44 @@ class EventImage extends MY_Controller {
 					$this->session->set_flashdata('error',  $error['upload_error']); 
 					echo $files['imageFile']['name'][$i].' '.$error['upload_error']; exit;
 				} else {
-			// Success upload file : Prepare upload file info for insert to database.
-					//$fileName = $_FILES['imageFile']['name'];
-					$fileName = $newFileName;
-					$data = array('upload_data' => $this->upload->data()); 
+				// Success upload file : Prepare upload file info for insert to database.
+					$fileName = $this->upload->file_name;
 
+					$data = array('upload_data' => $this->upload->data()); 
 			// Thumnail : Resize Image.
 				// Thumpnail : Initial path file&folder.
-					$path=$data['upload_data']['full_path'];
-					$q['name']=$data['upload_data']['file_name'];
+					$path = $data['upload_data']['full_path'];
+					$q['name'] = $data['upload_data']['file_name'];
 				// Thumpnail : Config file type, size save method.
 					$configi['image_library'] = 'gd2';
-					$configi['source_image']   = $path;
-					$configi['new_image']   = $target_path;
+					$configi['source_image'] = $path;
+					$configi['new_image'] = $target_path;
 					$configi['maintain_ratio'] = TRUE;
-					$configi['width']  = 150; // new size
+					$configi['width'] = 150; // new size
 					$configi['height'] = 150;
 				// Thumpnail : Push Config to library.
 					$this->load->library('image_lib');
 					$this->image_lib->initialize($configi);
 				// Thumpnail : Resize file.
 					$this->image_lib->resize();
-				// I don't know.
-					$images[] = $fileName;
 
 				// Save info to.
 					$image_upload = array('priority' => 0, 'FK_ICC_Card' => $iccCardId, 'image_URL' => $fileName);
-					$this ->db->insert('event_image',$image_upload); 
-				}			
+					$resutl = $this->eventImage_m->AddNewImage($image_upload);
+				}
 			}
 		}
-		//redirect(site_url('eventImage/manipulate'));
-		redirect($_SERVER['REQUEST_URI'], 'refresh');
+
+		return $result;
+	}
+
+	private function RenderPage() {
+		// Prepare Template.
+		$this->extendedCss = 'admin/eventImage/manipulate/extendedCss_v';
+		$this->body = 'admin/eventImage/manipulate/body_v';
+		$this->footer = 'admin/eventImage/manipulate/footer_v';
+		$this->extendedJs = 'admin/eventImage/manipulate/extendedJs_v';
+		$this->renderWithTemplate();
 	}
 // End Private function.
 }

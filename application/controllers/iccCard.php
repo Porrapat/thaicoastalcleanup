@@ -1,24 +1,24 @@
 <?php
 class IccCard extends MY_Controller {
 // Property.
-	private $dataTypeName = "ICC Card";
-	private $inputModeName = [1 => 'เพิ่มข้อมูล', 2 => 'แก้ไข'];
-	private $paginationLimit = 70;
+	//private $dataTypeName = "ICC Card";
+	//private $inputModeName = [1 => 'เพิ่มข้อมูล', 2 => 'แก้ไข'];
+	private $paginationLimit = 15;
 // End Property.
 
 
 // Constructor.
-    public function __construct() {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
 		$this->isBackend = true;
 		$this->is_logged();
-    }
+	}
 // End Constructor.
 
 
 // Method start.
-    public function index() {
+	public function index() {
 		if(!($this->is_logged())) {exit(0);}
 
 		$this->view();
@@ -34,7 +34,7 @@ class IccCard extends MY_Controller {
 		// Prepare data of view.
 		$this->data = $this->GetDataForViewDisplay();
 		// Caption.
-		$this->data['dataTypeName'] = $this->dataTypeName;
+		//$this->data['dataTypeName'] = $this->dataTypeName;
 		
 		// Prepare Template.
 		$this->extendedCss = 'admin/iccCard/list/extendedCss_v';
@@ -72,14 +72,15 @@ class IccCard extends MY_Controller {
 
 		if ($this->input->server('REQUEST_METHOD') === 'POST') {
 			$rDataFilter = $this->input->post('rDataFilter');
-			$page = $this->input->post('page');
+			$pageCode = $this->input->post('pageCode');
 
 			$this->load->model('iccCard_m');
-			$dsData = $this->iccCard_m->GetDataForComboBoxAjaxListView();
+			$dataRender = $this->iccCard_m->GetDataForComboBoxAjaxListView();
+			$dataPagination = $this->setPagination($rDataFilter, $pageCode);
+			$dataRender["dsView"] = $dataPagination["dsIccCardList"];
 
-			$result = $this->setPagination($rDataFilter, $page);
-			$dsData["dsIccCardList"] = $result["dsIccCardList"];
-			$dsData["paginationLinks"] = $result["paginationLinks"];
+			$dsData["htmlTableBody"] = $this->load->view("admin/iccCard/list/bodyTableBody_v", $dataRender, TRUE);
+			$dsData["paginationLinks"] = $dataPagination["paginationLinks"];
 
 			echo json_encode($dsData);
 		}
@@ -199,15 +200,15 @@ class IccCard extends MY_Controller {
 
 // Private function.
 	// ---------------------------------------------------------------------------------------- Set pagination.
-	private function setPagination($rFilter=null, $page=0) {
+	private function setPagination($rFilter=null, $pageCode=0) {
 		$this->load->library("pagination");
 		$this->load->model('iccCard_m');
 
 		$config = array();
 		$config['full_tag_open'] = "<ul class='pagination'>";
 		$config['full_tag_close'] ="</ul>";
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
+		$config['num_tag_open'] = "<li>";
+		$config['num_tag_close'] = "</li>";
 		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
 		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
 		$config['next_tag_open'] = "<li>";
@@ -226,10 +227,12 @@ class IccCard extends MY_Controller {
 		$choice = $config["total_rows"] / $config["per_page"];
 		$config["num_links"] = round($choice);
 
+		$config['setCurPage'] = $pageCode;
 		$this->pagination->initialize($config);
 
 		//$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$data["dsIccCardList"] = $this->iccCard_m->GetIccCardList($rFilter, $config["per_page"], $page);
+		//$page = ($pageCode - 1) * $config["per_page"];
+		$data["dsIccCardList"] = $this->iccCard_m->GetIccCardList($rFilter, $config["per_page"], $pageCode);
 		$data["paginationLinks"] = $this->pagination->create_links();
 
 		return $data;
@@ -254,10 +257,10 @@ class IccCard extends MY_Controller {
 		// Prepare data of view.
 		$this->data = $this->GetDataForInputDisplay($rowID);
 		// Caption.
-		$this->data['dataTypeName'] = $this->dataTypeName;
-		$this->data['inputModeName'] = $this->inputModeName[$inputMode];
+		//$this->data['dataTypeName'] = $this->dataTypeName;
+		//$this->data['inputModeName'] = $this->inputModeName[$inputMode];
 		// Input Mode.
-		$this->data['inputMode'] = $inputMode;
+		//$this->data['inputMode'] = $inputMode;
 
 		// Prepare Template.
 		$this->extendedCss = 'admin/iccCard/input/extendedCss_v';
