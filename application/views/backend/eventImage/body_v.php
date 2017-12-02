@@ -34,11 +34,10 @@
 														<?php $i=1; ?>
 														<?php foreach($dsImage as $image) { ?>
 															<td>
-																<a title="You can add caption to pictures." 
-																href="<?=base_url().'uploads/Event_Images/'.$image['Image_URL'] ?>" 
-																rel="prettyPhoto[pp_gal]">
+																<a title="" rel="prettyPhoto[pp_gal]"
+																href="<?=base_url().'uploads/Event_Images/'.$image['Image_URL'] ?>" >
 																	<img src="<?=base_url().'uploads/Event_Images/thumbs/'.$image['Image_URL'] ?>" 
-																	alt="Red round shape">
+																	alt="<?=$image['Caption']?>">
 																</a>
 															</td>
 															<?php if($i > 4) { ?>

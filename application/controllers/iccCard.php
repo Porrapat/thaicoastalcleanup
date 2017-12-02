@@ -33,9 +33,9 @@ class IccCard extends MY_Controller {
 		$this->data = $this->GetDataForViewDisplay();
 		
 		// Prepare Template.
-		$this->extendedCss = 'admin/iccCard/list/extendedCss_v';
-		$this->body = 'admin/iccCard/list/body_v';
-		$this->extendedJs = 'admin/iccCard/list/extendedJs_v';
+		$this->extendedCss = 'backend/iccCard/list/extendedCss_v';
+		$this->body = 'backend/iccCard/list/body_v';
+		$this->extendedJs = 'backend/iccCard/list/extendedJs_v';
 		$this->renderWithTemplate();
 	}
 	public function addNew() {
@@ -75,7 +75,7 @@ class IccCard extends MY_Controller {
 			$dataPagination = $this->setPagination($rDataFilter, $pageCode);
 			$dataRender["dsView"] = $dataPagination["dsIccCardList"];
 
-			$dsData["htmlTableBody"] = $this->load->view("admin/iccCard/list/bodyTableBody_v", $dataRender, TRUE);
+			$dsData["htmlTableBody"] = $this->load->view("backend/iccCard/list/bodyTableBody_v", $dataRender, TRUE);
 			$dsData["paginationLinks"] = $dataPagination["paginationLinks"];
 
 			echo json_encode($dsData);
@@ -252,18 +252,13 @@ class IccCard extends MY_Controller {
 	private function SetInputDisplay($inputMode=1, $rowID=null) {
 		// Prepare data of view.
 		$this->data = $this->GetDataForInputDisplay($rowID);
-		// Caption.
-		//$this->data['dataTypeName'] = $this->dataTypeName;
-		//$this->data['inputModeName'] = $this->inputModeName[$inputMode];
-		// Input Mode.
-		//$this->data['inputMode'] = $inputMode;
 
 		// Prepare Template.
-		$this->extendedCss = 'admin/iccCard/input/extendedCss_v';
-		$this->header = 'admin/iccCard/input/header_v';
-		$this->body = 'admin/iccCard/input/body_v';
-		$this->footer = 'admin/iccCard/input/footer_v';
-		$this->extendedJs = 'admin/iccCard/input/extendedJs_v';
+		$this->extendedCss = 'backend/iccCard/input/extendedCss_v';
+		$this->header = 'backend/iccCard/input/header_v';
+		$this->body = 'backend/iccCard/input/body_v';
+		$this->footer = 'backend/iccCard/input/footer_v';
+		$this->extendedJs = 'backend/iccCard/input/extendedJs_v';
 		$this->renderWithTemplate();
 	}
   // ---------------------------------------------------------------------------------------- Initial input mode

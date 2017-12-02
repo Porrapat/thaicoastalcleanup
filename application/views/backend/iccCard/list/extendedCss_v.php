@@ -5,4 +5,5 @@
     $this->load->view('template/sharedCss_v');
     // My Css.
     echo css_asset('iccCard/stylesheet.css');
+    echo css_asset('admin/admin-stylesheet.css');
 ?>

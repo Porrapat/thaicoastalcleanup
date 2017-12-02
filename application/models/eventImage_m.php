@@ -16,6 +16,7 @@ class EventImage_m extends CI_Model {
 		$sqlStr = "SELECT " . $this->eventImage_d->colId
 				. ", " .$this->eventImage_d->colImageUrl
 				. ", " .$this->eventImage_d->colPriority
+				. ", " .$this->eventImage_d->colCaption
 				. " FROM " . $this->eventImage_d->tableName . " e"
 				. " WHERE e." . $this->eventImage_d->colActive . "=1"
 				. ( (($id !== NULL) || ($id > 0)) 
