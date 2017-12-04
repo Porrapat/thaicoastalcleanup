@@ -16,6 +16,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
    
     <?php
+        echo css_asset("customize/my-panel.css");
+        echo css_asset("customize/my-daterange.css");
         if($useCssTemplate) {
             $this->load->view('template/welcome_css');
         }
