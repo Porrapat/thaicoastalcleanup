@@ -87,75 +87,54 @@ if(isset($extendedCss)) echo $extendedCss;
 </head>
 
 <body class="loading-overlay-showing" data-loading-overlay>
-        <span class="loading-overlay dark">
-            <span class="loader white"></span>
-        </span>
+    <span class="loading-overlay dark">
+        <span class="loader white"></span>
+    </span>
 
     <section class="body" id="sectionBody">
-
-
         <header class="header">
-                <div class="logo-container">
-                    <a href="#" class="logo pull-left" style="margin-top:0px;">
+            <div class="logo-container">
+                <a href="#" class="logo pull-left" style="margin-top:0px;">
                     <img src="<?php echo base_url('assets/images/logo/logo-5.png'); ?>" height="52"  /> <span style="font-size: 16px;">กรมทรัพยากรทางทะเลและชายฝั่ง<span>
                 </a>
-                    <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened"
-                    data-target="html" data-fire-event="sidebar-left-opened">
-                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-                    </div>
+                <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
                 </div>
-
-                <!-- start: search & user box -->
-                <div class="header-right">
-
-
-
-
-
-                    <span class="separator"></span>
-                        <?php
-                        if ( $this->session->userdata('isUserLoggedIn') ) {
-                        ?>
-                    <div id="userbox" class="userbox">
-                        <a href="#" data-toggle="dropdown">
-                            <figure class="profile-picture">
+            </div>
+            <!-- start: search & user box -->
+            <div class="header-right">
+                <span class="separator"></span>
+                    <?php if ( $this->session->userdata('isUserLoggedIn') ) : ?>
+                        <div id="userbox" class="userbox">
+                            <a href="#" data-toggle="dropdown">
+                                <figure class="profile-picture">
+                                
+                                <img src="<?php echo base_url('./assets/admin/assets/images/avatar/1483537975.png'); ?>" width="35" height="35"  
+                                class="img-circle" data-lock-picture="<?php echo base_url('./admin/assets/images/avatar/1483537975.png'); ?>" />
                             
-                              <img src="<?php echo base_url('./assets/admin/assets/images/avatar/1483537975.png'); ?>" width="35" height="35"  
-                              class="img-circle" data-lock-picture="<?php echo base_url('./admin/assets/images/avatar/1483537975.png'); ?>" />
-                        
-                            </figure>
-                            <div class="profile-info" data-lock-name="{{ Auth::user()->name }}" >
-                                <span class="name"><?php  echo $this->session->userdata('user_name'); ?></span>
-                                <span class="role"></span>
+                                </figure>
+                                <div class="profile-info" data-lock-name="{{ Auth::user()->name }}" >
+                                    <span class="name"><?php  echo $this->session->userdata('user_name'); ?></span>
+                                    <span class="role"></span>
+                                </div>
+
+                                <i class="fa custom-caret"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <ul class="list-unstyled">
+                                    <li class="divider"></li>
+                                
+                                    <li>
+                                        <a role="menuitem" tabindex="-1" href="<?php echo base_url('logout'); ?>" ><i class="fa fa-power-off"></i> ออกจากระบบ</a>
+                                    </li>
+                                </ul>
                             </div>
-
-                            <i class="fa custom-caret"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                            <ul class="list-unstyled">
-                                <li class="divider"></li>
-                              
-                                <li>
-                                    <a role="menuitem" tabindex="-1" href="<?php echo base_url('logout'); ?>" ><i class="fa fa-power-off"></i> ออกจากระบบ</a>
-                                </li>
-                            </ul>
                         </div>
-                    </div>
-                        <?php
-                         }
-                        ?>
-                     
-
-
-
-
-
-
+                    <?php endif; ?>
                 </div>
                 <!-- end: search & user box -->
-            </header>
-            <!-- end: header -->
+        </header>
+        <!-- end: header -->
 
 
 <div class="inner-wrapper">
@@ -305,8 +284,8 @@ html.no-overflowscrolling .nano > .nano-pane > .nano-slider {
 
 
 <?php if($header) echo $header;?>
-								<?php if($body) echo $body;?>
-								<?php if($footer) echo $footer;?>
+                                <?php if($body) echo $body;?>
+                                <?php if($footer) echo $footer;?>
 
 
 
@@ -465,19 +444,7 @@ $(document).ready(function() {
 //flash:old:success_blog success_blog_del_img success_blog_del success_slide_del
 </script>
 
-<?php 
-	// Js in body tag.
-		// Js template plugin.
-			//if( ($useJsTemplate) && !($useJsTemplateHeadTag) ) {
-				$this->load->view('template/coreJs_v');
-			//}
-		// End Js template plugin.
 
-		// Js customize.
-			if(isset($extendedJs)) echo $extendedJs;
-		// Js customize.
-	// End Js in body tag.
-		?>
 </body>
 
 </html>
