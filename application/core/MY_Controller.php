@@ -61,9 +61,6 @@ class MY_Controller extends CI_Controller
         }
     }
     protected function renderWithTemplate3() {
-        
-		
-
         $this->dataTemplate['extendedCss'] = ((($this->extendedCss != null) && ($this->extendedCss != ''))
             ? $this->load->view($this->extendedCss, $this->data, true) : '');
 
@@ -78,9 +75,8 @@ class MY_Controller extends CI_Controller
 
         $this->dataTemplate['extendedJs'] = ((($this->extendedJs != null) && ($this->extendedJs != ''))
             ? $this->load->view($this->extendedJs, $this->data, true) : '');
-	    //print_r( $this->data['rIccCardStatus']);exit;
 
-            $this->load->view('template/admin_template', $this->dataTemplate);
+        $this->load->view('template/admin_template', $this->dataTemplate);
 
     }
 
