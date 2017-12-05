@@ -66,10 +66,12 @@
     </div>
 <br><br>
 <div class="col-xs-12 col-md-12 col-lg-12 margin-input">
-					<div class="col-xs-10 col-md-10 col-lg-10">
+					<div class="col-xs-9 col-md-9 col-lg-9">
 					</div>
-					<div class="col-xs-2 col-md-2 col-lg-2 pull-right">
-						<button type="submit" class="btn btn-primary btn-submit pull-right">Save</button>
+					<div class="col-xs-3 col-md-3 col-lg-3 pull-right">
+						
+                                            <button type="submit" name="save" class="btn btn-primary btn-submit pull-right">Save</button>
+                                            <button type="submit" name="delete" class="btn btn-danger btn-submit ">Delete</button>
 					</div>
     </div>
 				

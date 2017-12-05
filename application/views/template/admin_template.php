@@ -38,7 +38,7 @@
         <link rel="stylesheet" href="<?php echo base_url('./assets/admin/assets/style.css'); ?>" />
         <link rel="stylesheet" href="<?php echo base_url('./assets/admin/assets/vendor/pnotify/pnotify.custom.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('./assets/admin/assets/vendor/magnific-popup/magnific-popup.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('./assets/admin/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>">
+        <link rel="stylesheet" href="<?php echo base_url('./assets/admin/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('./assets/admin/assets/vendor/isotope/jquery.isotope.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('./assets/admin/assets/vendor/pnotify/pnotify.custom.css'); ?>">
         <!-- Theme Custom CSS -->
@@ -319,6 +319,10 @@ html.no-overflowscrolling .nano > .nano-pane > .nano-slider {
     <!-- /#section -->
 
     <!-- jQuery -->
+    
+    
+    
+
 
 <!-- Vendor -->
 <script src="<?php echo base_url('./assets/admin/assets/vendor/jquery/jquery.js'); ?>"></script>
@@ -372,7 +376,7 @@ jQuery(document).ready(function() {
     //alert('test');
 });
 </script>
-<?php if(0){?>
+
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -395,8 +399,7 @@ $(document).ready(function() {
 
 </script>
 
-    <?php } ?>
-
+   
 
 
 <script type="text/javascript">

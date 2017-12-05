@@ -110,7 +110,36 @@ class Masterdata extends MY_Controller {
     }
 // End AJAX function.
 
+    public function save() {
+		if(!($this->is_logged())) {exit(0);}
+$dataType = $this->input->post('dataType');
+		$result = 1;
+		if ($this->input->server('REQUEST_METHOD') === 'POST') {
+			$allDataPost = $this->input->post(NULL, TRUE);
+			//print_r($allDataPost);
+                        if(isset($allDataPost['delete'])){
+                            //echo "test";
+                            //  $this->db->delete('files_blog', array('id' => $row['id']));
+                            //$dataType = $dsSave['dataType'];
+    	//unset($dsSave['dataType']);
+    	
+    	$rowID = $this->input->post('rowID');
+    	//unset($dsSave['rowID']);
+                            $this->SelectMasterdataObject($dataType);
 
+		// Save data to DB.
+		$result = $this->oMasterdata_m->Delete($rowID);
+                        }else{
+                            $result = $this->SaveDataToDB($allDataPost);
+                        }
+                        //exit;
+			
+		}
+
+		$result = (($result) ? 0 : 1);
+		//echo $result;
+                redirect(base_url('masterdata/view/' . $dataType));
+    }
 
 // Private function.
     // ------------------------------------------- Select masterdata object ----------------------------
