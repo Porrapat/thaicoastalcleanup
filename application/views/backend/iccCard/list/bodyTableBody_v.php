@@ -1,4 +1,4 @@
-<!-- Table body --><?php $level=1 ?>
+<!-- Table body -->
 <?php 
     $numRecordStart++;
     foreach($dsIccCardList as $row) {
@@ -30,7 +30,7 @@
             echo('<input type="hidden" id="iccCardId" value="' . $row['id'] . '"/>');
         echo('</td>');
         echo('<td class="text-center">');
-            echo('<a href="#" id="eventImage"');
+            echo('<a href="#" id="eventImageAdmin"');
             echo('class="button button-block button-rounded button-large">ภาพกิจกรรม</a>');
         echo('</td>');
     echo('</tr>');
