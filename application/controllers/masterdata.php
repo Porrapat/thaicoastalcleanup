@@ -53,13 +53,20 @@ class Masterdata extends MY_Controller {
 		$this->data = $this->GetDataForViewDisplay($dataType);
 
 		// Prepare Template.
-		$this->extendedCss = 'backend/masterdata/list/extendedCss_v';
-		$this->body = 'backend/masterdata/list/body_v';
-		$this->extendedJs = 'backend/masterdata/list/extendedJs_v';
+		//$this->extendedCss = 'backend/masterdata/list/extendedCss_v';
+		//$this->body = 'backend/masterdata/list/body_v';
+		//$this->extendedJs = 'backend/masterdata/list/extendedJs_v';
 		//$this->renderWithTemplate();
+                 $this->data["links"] = $this->pagination->create_links();
+
+   
+       
+                $this->body = 'admin/masterdata/index';
 		$this->renderWithTemplate();
     }
     public function addNew() {
+        //$this->body = 'admin/masterdata/create';
+       // $this->body = 'admin/masterdata/body' . $bodyView . '_v';
     	if(!($this->is_logged())) {exit(0);}
     	
 		if ($this->input->server('REQUEST_METHOD') === 'POST'){
@@ -71,6 +78,8 @@ class Masterdata extends MY_Controller {
 		}
     }
     public function edit() {
+        
+        // $this->body = 'admin/masterdata/edit';
     	if(!($this->is_logged())) {exit(0);}
     	
 		if ($this->input->server('REQUEST_METHOD') === 'POST') {
@@ -203,11 +212,12 @@ class Masterdata extends MY_Controller {
 								: str_replace(' ', '', $this->dataTypeCaption[$dataType]) ) );
 
 		// Prepare Template.
-		$this->extendedCss = 'backend/masterdata/input/extendedCss_v';
-		$this->header = 'backend/masterdata/input/header_v';
-		$this->body = 'backend/masterdata/input/body' . $bodyView . '_v';
-		$this->footer = 'backend/masterdata/input/footer_v';
-		$this->extendedJs = 'backend/masterdata/input/extendedJs_v';
+		//$this->extendedCss = 'backend/masterdata/input/extendedCss_v';
+		//$this->header = 'backend/masterdata/input/header_v';
+		//$this->body = 'backend/masterdata/input/body' . $bodyView . '_v';
+		//$this->footer = 'backend/masterdata/input/footer_v';
+		//$this->extendedJs = 'backend/masterdata/input/extendedJs_v';
+                $this->body = 'admin/masterdata/body' . $bodyView . '_v';
 		//$this->renderWithTemplate();
 		$this->renderWithTemplate();
     }

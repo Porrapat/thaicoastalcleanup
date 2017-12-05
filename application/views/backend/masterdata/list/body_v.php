@@ -31,16 +31,22 @@
 	</div>
 </div>
 
-
+  <?php 
+                    echo form_open(base_url("masterdata/edit/".$dataType), array("id" => "formChoose"));
+                    ?>
 <!-- Table list view -->
-<?php echo form_open(base_url("masterdata/edit/".$dataType), array("id" => "formChoose")); ?>
 <div class="container">
 	<div class="row">
+
+
 		<div class="col-xs-12 col-md-12 col-lg-12">
+                    <div style="overflow-x:auto; overflow-y:auto;">
+                  
 			<input type='hidden' id='dataType' name='dataType' value=<?php echo($dataType); ?> />
-			<div style="overflow-x:auto; overflow-y:auto;">
+			
 			<table id="view"
-			class="table table-bordered table-components table-condensed table-hover table-striped table-responsive">
+			class="table table-bordered table-components table-condensed table-hover table-striped table-responsive"  
+                        style="width: 100%;">
 			<!-- Table -->			
 				<thead class="table-header">
 				<!-- Row table header -->
@@ -84,11 +90,16 @@
 					?>
 				</tbody>
 			</table>
-		</div>
-	</div>
+		
+	
+<!-- Close formChoose -->
 </div>
-<?php echo form_close(); ?><!-- Close formChoose -->
-
+</div>
+</div>
+</div>
+<?php 
+echo form_close();
+?>
 
 <div id="footer">
 	<hr>
