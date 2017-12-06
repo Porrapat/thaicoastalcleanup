@@ -6,88 +6,67 @@ class Report extends MY_Controller {
 
 
 // Constructor.
-    public function __construct() {
+	public function __construct() {
 		parent::__construct();
-		$this->routingCode = 1;
-    }
+	}
 // End Constructor.
 
 
 
 
 // Method start.
-    public function index() {
-		$this->dashboardReport();
+	public function index() {
+		$this->mainReport();
 	}
 // End Method start.
 
 
 
 // Routing function.
-    // ------------------------------------- For display ovarview report.
-	private function dashboardReport() {
+	private function mainReport() {
 		// Prepare data of view.
-		$this->data = $this->GetInitialDashboardReportData();
-		
+		$this->data = $this->GetInitialMainReportData();
 
 		// Prepare Template.
-		$this->extendedCss = 'frontend/report/dashboard/extendedCss_v';
-		$this->body = 'frontend/report/dashboard/body_v';
-		$this->extendedJs = 'frontend/report/dashboard/extendedJs_v';
-		$this->footer = 'frontend/report/dashboard/footer_v';
+		$this->extendedCss = 'frontend/report/main/extendedCss_v';
+		$this->body = 'frontend/report/main/body_v';
+		$this->extendedJs = 'frontend/report/main/extendedJs_v';
+		$this->footer = 'frontend/report/main/footer_v';
 		$this->renderWithTemplate();
 	}
 // End Routing function.
 
 
-///////////////////////////////////////////////// AJAX function.
-// Dashboard Report.
-	public function ajaxGetDashboardReportData() {
-    	if ($this->input->server('REQUEST_METHOD') === 'POST') {
+// AJAX function.
+	// ---------------------------------------------------------------------------------------- Get Data for Combobox report and map.
+	public function ajaxGetMainReportData() {
+		if ($this->input->server('REQUEST_METHOD') === 'POST') {
 			$rankingLimit = $this->input->post('rankingLimit');
 			$strDateStart = $this->input->post('strDateStart');
-    		$strDateEnd = $this->input->post('strDateEnd');
+			$strDateEnd = $this->input->post('strDateEnd');
 			$provinceCode = $this->input->post('provinceCode');
 			$provinceCode = ( ($provinceCode > 0 ) ? $provinceCode : null);
 			$iccCardId = $this->input->post('iccCardId');
 			$iccCardId = ((($iccCardId == "0" ) || ($iccCardId == 0 )) ? null : $iccCardId);
 
 			$this->load->model("report_m");
-			$result = $this->report_m->GetDashboardReportData(
-				$rankingLimit, $strDateStart, $strDateEnd, $provinceCode, $iccCardId);
+			$result = $this->report_m->GetMainReportData($rankingLimit, $strDateStart, $strDateEnd, $provinceCode, $iccCardId);
 
-    		echo json_encode($result);
-    	}
+			echo json_encode($result);
+		}
 	}
-// End Dashboard Report.
-
-// Get data to ComboBox filtered.
-	public function ajaxGetProjectFiltered() {
-    	if ($this->input->server('REQUEST_METHOD') === 'POST')
-    	{
-			$provinceCode = $this->input->post('provinceCode');
-			$provinceCode = ( ($provinceCode > 0 ) ? $provinceCode : null);
-			
-			$this->load->model("report_m");
-			$dsData = $this->report_m->GetDsProject($provinceCode);
-
-			echo json_encode($dsData);
-    	}
-	}
-// End Get data to ComboBox filtered.
-///////////////////////////////////////////////// End AJAX function.
+// END AJAX function.
 
 
 // Private function.
-    // ---------------------------------------------- Dashboard Report ----------------------------------
-	private function GetInitialDashboardReportData() {
-		$this->load->model("report_m");
-		$data = $this->report_m->GetDataForComboBox();
+	// ---------------------------------------------------------------------------------------- Get initial data for Main Report.
+	private function GetInitialMainReportData() {
 		$data["map"] = $this->CreateMap()["map"];
 
 		return $data;
 	}
 
+	// ---------------------------------------------------------------------------------------- Create Map.
 	private function CreateMap($dsMapTransaction=array()) {
 		$this->load->library('googlemaps');
 		// Config.
