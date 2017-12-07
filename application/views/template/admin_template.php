@@ -372,7 +372,7 @@ jQuery(document).ready(function() {
     //alert('test');
 });
 </script>
-<?php if(0){?>
+
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -395,7 +395,7 @@ $(document).ready(function() {
 
 </script>
 
-    <?php } ?>
+
 
 
 
