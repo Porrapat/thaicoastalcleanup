@@ -1,4 +1,5 @@
-<div class="container" style="padding: 30px 0 60px;">
+<div class="background-under-picture">
+<div class="container" style="background:white;padding: 30px;">
     <div class="row">
         <style type="text/css">
             
@@ -45,7 +46,7 @@
                       
         </div>
 
-        <dir class="col-md-9" style="margin-top: 1px;">
+        <div class="col-md-9" style="margin-top: 1px;">
 
             <div class="sidebar-tabing" style="padding-left: 15px; padding-right: 15px;">
 
@@ -90,7 +91,7 @@
                           </div>
                           
             
-        </dir>
+        </div>
 
 
 <style>
@@ -236,3 +237,4 @@
 </div>
 </div>
 
+</div>
