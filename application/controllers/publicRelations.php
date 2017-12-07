@@ -59,7 +59,13 @@ class PublicRelations extends MY_Controller {
 		$this->renderWithTemplate();	
 	}
 
-	public function content_list(){
+	// เพิ่ม Parameter แบ่งประเภทของข่าว / บทความ
+	// type_id = 1 -- ข่าวสาร
+	// type_id = 2 --บทความ
+	// type_id = 3 --ข่าวสารโครงการ
+	// type_id = 4 --ความรู้เกี่ยวกับที่มาของขยะทะเล
+	public function content_list($type_id = 1){
+
 		$this->load->library("pagination");
 		$config = array();
         $config['full_tag_open'] = "<ul class='pagination'>";
@@ -88,11 +94,11 @@ class PublicRelations extends MY_Controller {
 		if($set_end == null){
 			$set_end = 0;
 		}
-    	$sql="select * from article where edate <= now() LIMIT $set_end, $config[per_page]";
+    	$sql="select * from article where FK_Article_Category = ".$type_id." AND edate <= now()";
         $rs=$this->db->query($sql);
         $data['rs'] =$rs->result_array();
 
-        $sql_view="select * from article where edate <= now() ORDER BY view DESC LIMIT 0,6";
+        $sql_view="select * from article where FK_Article_Category = ".$type_id." AND edate <= now() ORDER BY view DESC LIMIT 0,6";
         $rs_view=$this->db->query($sql_view);
        if($rs_view->num_rows() == 0){
        	 $data['rs_view'] = array();
