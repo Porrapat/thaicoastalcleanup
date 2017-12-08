@@ -103,9 +103,11 @@
                             <p style="    font-size: 13px;">เลขที่ 120 หมู่ที่ 3 ชั้นที่ 5-9 อาคารรัฐประศาสนภักดี ศูนย์ราชการเฉลิมพระเกียรติ 
                             80 พรรษา 5 ธันวาคม 2550 ถนนแจ้งวัฒนะ แขวงทุ่งสองห้อง เขตหลักสี่ กรุงเทพมหานคร 10210</p>
                             <ul>
-                                <li><span>โทรศัพท์ :</span> (+66) 0 2141 1299-300 </li>
+                                <!--
+                                <li><span>โทรศัพท์ :</span> (+66) 0 2141 1299-300 </li> -->
                                 <li><span>โทรสาร :</span> (+66) 0 2143 9263 </li>
-                                <li><span>อีเมล:</span> it@dmcr.mail.go.th </li>
+                                <!--
+                                <li><span>อีเมล:</span> it@dmcr.mail.go.th </li> -->
                             </ul>
                         </div>
                         <div class="col-md-3">
@@ -126,7 +128,7 @@
                     <div class="row">
                         <div class="col-md-8" style="border-top: 1px solid rgba(255,255,255,.06); margin-top:25px;">
                             <p class="copyright small" style="padding-top: 15px; color: #ccc; margin: 0 0 1px;">เว็บไซต์ กรมทรัพยากรทางทะเลและชายฝั่ง แสดงผลได้ดีกับบราวเซอร์  <img src="https://www.learnsbuy.com/assets/image/chrome-512.png" style="margin-left:10px;height:25px;"> <img src="https://www.learnsbuy.com/assets/image/appicns_Firefox.png" style="height:25px;"> <img src="https://www.learnsbuy.com/assets/image/500px-Internet_Explorer_4_and_5_logo.svg.png" style="height:25px;"> <img src="https://www.learnsbuy.com/assets/image/safari_PNG28.png" style="height:25px;margin-right:10px;">  เวอร์ชั่นล่าสุด</p>
-                            <p class="copyright small" style="padding: 3px 0; color: #ccc;font-size: 13px;">สงวนลิขสิทธิ์ © พ.ศ.๒๕๕๖ กรมทรัพยากรทางทะเลและชายฝั่ง</p>
+                            <p class="copyright small" style="padding: 3px 0; color: #ccc;font-size: 13px;">สงวนลิขสิทธิ์ © พ.ศ.2560 กรมทรัพยากรทางทะเลและชายฝั่ง</p>
                         </div>
                         <div>
                             
