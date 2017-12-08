@@ -40,7 +40,7 @@
                 <!-- Branding Image  visible-sm visible-xs-->
                 <a class="navbar-brand" href="<?php echo base_url('/'); ?>">
                     <img style="margin-top:-25px;" src="<?php echo base_url('assets/images/logo/logo.png'); ?>" height="55" title="logo">
-                    <a href="<?php echo base_url('/'); ?>" style="font-size: 16px;" class="site-sm-title visible-sm visible-xs"> กรมทรัพยากรชายฝั่ง</a>
+                    <a href="<?php echo base_url('/'); ?>" style="font-size: 16px;" class="site-sm-title visible-sm visible-xs"> กรมทรัพยากรทางทะเลและชายฝั่ง</a>
                     <span class="site-sm-description visible-sm visible-xs">ฐานข้อมูลขยะทะเล</span>
                 </a>
             </div>
@@ -48,7 +48,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav hidden-sm hidden-xs">
-                    <li><a href="<?php echo base_url('/'); ?>" class="site-title"> กรมทรัพยากรชายฝั่ง</a></li>
+                    <li><a href="<?php echo base_url('/'); ?>" class="site-title"> กรมทรัพยากรทางทะเลและชายฝั่ง</a></li>
                     <li class="li-site-description"><a href="<?php echo base_url('/'); ?>" class="site-description">
                      ฐานข้อมูลขยะทะเล</a></li>
                 </ul>
