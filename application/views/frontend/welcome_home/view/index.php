@@ -69,7 +69,7 @@ return "$strDay $strMonthThai $strYear";
 		<div class="container">
 			<div class="row">
 				<!-- Content-1-Home col-1 section -->
-				<div class="col-md-3 image-upper-bg-block">
+				<div class="col-md-3 image-upper-bg-block rotateImageTrick">
 					<ul class="none">
 						<li>
 							<p class="tn">
@@ -88,7 +88,7 @@ return "$strDay $strMonthThai $strYear";
 				<!-- End Content-1-Home col-1 section -->
 
 				<!-- Content-1-Home col-2 section -->
-				<div class="col-md-3 image-upper-bg-block">
+				<div class="col-md-3 image-upper-bg-block rotateImageTrick">
 					<ul class="none">
 						<li>
 							<p class="tn">
@@ -107,7 +107,7 @@ return "$strDay $strMonthThai $strYear";
 				<!-- End Content-1-Home col-2 section -->
 
 				<!-- Content-1-Home col-3 section -->
-				<div class="col-md-3 image-upper-bg-block">
+				<div class="col-md-3 image-upper-bg-block rotateImageTrick">
 					<ul class="none">
 						<li>
 							<p class="tn">
@@ -126,7 +126,7 @@ return "$strDay $strMonthThai $strYear";
 				<!-- End Content-1-Home col-3 section -->
 
 				<!-- Content-1-Home col-4 section -->
-				<div class="col-md-3 image-upper-bg-block">
+				<div class="col-md-3 image-upper-bg-block rotateImageTrick">
 					<ul class="none">
 						<li>
 							<p class="tn">
