@@ -44,7 +44,7 @@ return "$strDay $strMonthThai $strYear";
                     <?php echo form_open(base_url("masterdata/addNew/".$dataType), array("id" => "formAddNew")); ?>
                   <button type="submit" id="dataType" 
 							name="dataType" value=<?php echo($dataType); ?>
-							class="btn btn-warning pull-right startFocus
+							class="btn btn-primary pull-left startFocus
 							<?php echo(($dataType == '10') ? ' hide' : ''); ?>">
 								<i class="fa fa-plus"></i> Add a new
 							</button>
