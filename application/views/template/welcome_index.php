@@ -64,10 +64,10 @@
                             ข่าวสาร <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="<?php echo base_url('publicRelations/content_list/'); ?>">ข่าวสาร</a></li>
-                            <li><a href="<?php echo base_url('publicRelations/content_list/'); ?>">บทความ</a></li>
-                            <li><a href="<?php echo base_url('publicRelations/content_list/'); ?>">ข่าวสารโครงการ</a></li>
-                            <li><a href="<?php echo base_url('publicRelations/content_list/'); ?>">ความรู้เกี่ยวกับที่มาของขยะทะเล</a></li>
+                            <li><a href="<?php echo base_url('publicRelations/content_list/1'); ?>">ข่าวสาร</a></li>
+                            <li><a href="<?php echo base_url('publicRelations/content_list/2'); ?>">บทความ</a></li>
+                            <li><a href="<?php echo base_url('publicRelations/content_list/3'); ?>">ข่าวสารโครงการ</a></li>
+                            <li><a href="<?php echo base_url('publicRelations/content_list/4'); ?>">ความรู้เกี่ยวกับที่มาของขยะทะเล</a></li>
                         </ul>
                     </li>
                     <li><a href="<?php echo base_url('mapPlace'); ?>"> แผนที่</a></li>

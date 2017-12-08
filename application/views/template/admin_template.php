@@ -402,6 +402,7 @@ $(document).ready(function() {
    
 
 
+
 <script type="text/javascript">
 
 <?php  if($this->session->flashdata('success_blog')){ ?>

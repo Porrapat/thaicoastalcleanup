@@ -4,7 +4,8 @@
 $sharelink =  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 //echo $sharelink;
 ?>
-<div class="container" style="padding: 30px 0 60px;">
+<div class="background-under-picture">
+<div class="container" style="background:white;padding: 30px;">
     <div class="row">
         <style type="text/css">
             
@@ -156,7 +157,7 @@ return "$strDay $strMonthThai $strYear";
                      
         </div>
 
-        <dir class="col-md-9" style="margin-top: 1px;">
+        <div class="col-md-9" style="margin-top: 1px;">
 
             <div class="" style="padding-left: 35px; padding-right: 20px;">
                 <br>
@@ -186,7 +187,7 @@ data-layout="button_count" data-size="small" data-mobile-iframe="true">
 <div class="fb-comments" data-href="<?php echo $sharelink;?>" data-numposts="5"></div>
         </div>
 <!---->
-        </dir>
+        </div>
         
         
         
@@ -198,7 +199,7 @@ data-layout="button_count" data-size="small" data-mobile-iframe="true">
 
             <div class="widget" style="background-color: #f5f5f5;">
               <div class="widget-title">
-                <ul class="tabs" style="margin-bottom: 0px;     margin-top: -5px;">
+                <ul class="tabs" style="padding-left:0px;margin-bottom: 0px;     margin-top: -5px;">
                   <li class="tab"><a href="#" class="current">Most Viewed</a></li>
                   </ul>
                 </div>
@@ -297,7 +298,7 @@ data-layout="button_count" data-size="small" data-mobile-iframe="true">
 
 
                 <div class="widget-posts">
-                  <ul>
+                  <ul style="padding-left:0px;">
 <?php if(count($rs_view) != 0){ ?>
                     <?php foreach($rs_view as $row) { ?>
                     
@@ -381,3 +382,5 @@ ul li {
 </div>
 </div>
 
+
+</div> <!-- end .background-under-picture -->

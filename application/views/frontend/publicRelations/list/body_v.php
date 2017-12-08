@@ -1,4 +1,5 @@
-<div class="container" style="padding: 30px 0 60px;">
+<div class="background-under-picture">
+<div class="container" style="background:white;padding: 30px;">
     <div class="row">
         <style type="text/css">
             
@@ -45,7 +46,7 @@
                       
         </div>
 
-        <dir class="col-md-9" style="margin-top: 1px;">
+        <div class="col-md-9" style="margin-top: 1px;">
 
             <div class="sidebar-tabing" style="padding-left: 15px; padding-right: 15px;">
 
@@ -90,7 +91,7 @@
                           </div>
                           
             
-        </dir>
+        </div>
 
 
 <style>
@@ -191,7 +192,7 @@
 
 <div class="widget" style="background-color: #f5f5f5;">
               <div class="widget-title">
-                <ul class="tabs" style="margin-bottom: 0px;     margin-top: -5px;">
+                <ul class="tabs" style="padding-left:0px;margin-bottom: 0px;     margin-top: -5px;">
                   <li class="tab"><a href="#" class="current">Most Viewed</a></li>
                   </ul>
                 </div>
@@ -201,7 +202,7 @@
 
 
                 <div class="widget-posts">
-                  <ul>
+                  <ul style="padding-left:0px;">
 <?php if(count($rs_view) != 0){ ?>
                     <?php foreach($rs_view as $row) { ?>
                     
@@ -236,3 +237,4 @@
 </div>
 </div>
 
+</div> <!-- end .background-under-picture -->
