@@ -25,7 +25,7 @@ function initialGoogleMap(){
         });
     }
 
-    initMap();
+    //initMap();
 
     function placeMarker(position, map) {
         if (!marker) {

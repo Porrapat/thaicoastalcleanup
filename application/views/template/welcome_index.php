@@ -72,7 +72,7 @@
                     </li>
                     <li><a href="<?php echo base_url('mapPlace'); ?>"> แผนที่</a></li>
                     <li><a href="<?php echo base_url('eventImageGallery'); ?>"> รวมภาพกิจกรรม</a></li>
-                    <li><a href="#"> เกี่ยวกับเรา </a></li>
+                      <li><a href="<?php echo base_url('publicRelations/content/42'); ?>"> เกี่ยวกับเรา </a></li>
                     <li class="dropdown">
                         <?php if ( $this->session->userdata('isUserLoggedIn') ) : ?>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
