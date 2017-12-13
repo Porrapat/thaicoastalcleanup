@@ -198,7 +198,42 @@
     var marker = null;
     var markers = [];
     var enalbeZoom = 0;
+    jQuery( document ).ready(function() {
+        jQuery('#longitude , #latitude').change(function(){
+           // alert('test');
+           lat = jQuery('#latitude').val();
+           lon = jQuery('#longitude').val();
+           if(lat && lon ){
+               var myLatLng = new google.maps.LatLng({lat: parseFloat(lat), lng: parseFloat(lon)});
+               if(markers.length){
+                   //markers[0].setMap(myLatLng);
+                   markers[0].setPosition(myLatLng);
+               }else{
+                   placeMarker(myLatLng, map);
+               }
+              // alert(lat +'|'+lon);
+              //clearMarkers();
+                //markers = [];
+
+              //markers = [];
+              //var myLatLng = new google.maps.LatLng({lat: parseFloat(lat), lng: parseFloat(lon)});
+             //placeMarker(myLatLng, map);
+           }
+           
+        });
+    });
     
+    
+    function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+   }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setAllMap(null);
+}
  function initMap2() {
      
      <?php 
