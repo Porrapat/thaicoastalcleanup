@@ -81,7 +81,7 @@ if(isset($extendedCss)) echo $extendedCss;
 
 
         </style>
-
+        <script src="<?php echo base_url('./assets/admin/assets/vendor/jquery/jquery.js'); ?>"></script>
 
 
 </head>
@@ -325,7 +325,7 @@ html.no-overflowscrolling .nano > .nano-pane > .nano-slider {
 
 
 <!-- Vendor -->
-<script src="<?php echo base_url('./assets/admin/assets/vendor/jquery/jquery.js'); ?>"></script>
+
 <script src="<?php echo base_url('./assets/admin/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js'); ?>"></script>
 <script src="<?php echo base_url('./assets/admin/assets/vendor/jquery-cookie/jquery.cookie.js'); ?>"></script>
 <script src="<?php echo base_url('./assets/admin/assets/vendor/bootstrap/js/bootstrap.js'); ?>"></script>
